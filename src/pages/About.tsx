@@ -37,10 +37,7 @@ const About = () => {
           opacity: 0,
           duration: 0.8,
           ease: 'power3.out',
-          scrollTrigger: {
-            trigger: item,
-            start: 'top 85%',
-          },
+          scrollTrigger: { trigger: item, start: 'top 85%', toggleActions: 'play reverse play reverse' },
         });
       });
     }, timelineRef);
@@ -97,7 +94,7 @@ const About = () => {
               className="img-reveal"
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.1 }}
               transition={{ duration: 0.8 }}
             >
               <img src={studioImg} alt="Our studio" className="w-full aspect-video object-cover" />
@@ -107,7 +104,7 @@ const About = () => {
               className="img-reveal"
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <img src={cameraImg} alt="Equipment" className="w-full aspect-video object-cover" />
@@ -131,7 +128,7 @@ const About = () => {
                 className="p-8 text-center"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.1 }}
                 transition={{ delay: i * 0.1, duration: 0.6 }}
               >
                 <v.icon className="mx-auto mb-6 text-accent" size={32} strokeWidth={1.5} />
@@ -174,7 +171,7 @@ const About = () => {
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.1 }}
           >
             <h2 className="font-heading text-4xl md:text-6xl font-light text-primary-foreground max-w-3xl mx-auto mb-8">
               Let's Work Together

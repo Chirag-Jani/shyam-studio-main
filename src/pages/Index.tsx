@@ -17,8 +17,7 @@ gsap.registerPlugin(ScrollTrigger);
 const stats = [
   { number: '500+', label: 'Sessions Completed' },
   { number: '8+', label: 'Years Experience' },
-  { number: '100%', label: 'Happy Families' },
-  { number: '15+', label: 'Awards Won' },
+  { number: '200+', label: 'Happy Families' },
 ];
 
 const portfolioPreview = [
@@ -66,39 +65,23 @@ const Index = () => {
           duration: 0.8,
           delay: i * 0.15,
           ease: 'power3.out',
-          scrollTrigger: {
-            trigger: item,
-            start: 'top 85%',
-          },
+          scrollTrigger: { trigger: item, start: 'top 85%', toggleActions: 'play reverse play reverse' },
         });
       });
 
       // Services section parallax
       gsap.utils.toArray<HTMLElement>('.service-card').forEach((card, i) => {
         gsap.from(card, {
-          y: 80,
+          y: 30,
           opacity: 0,
-          duration: 1,
-          delay: i * 0.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 85%',
-          },
+          duration: 0.4,
+          delay: i * 0.05,
+          ease: 'power2.out',
+          scrollTrigger: { trigger: card, start: 'top 95%', toggleActions: 'play reverse play reverse' },
         });
       });
 
-      // Horizontal scroll text
-      gsap.to('.marquee-text', {
-        xPercent: -50,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.marquee-section',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1,
-        },
-      });
+
     });
 
     return () => ctx.revert();
@@ -121,14 +104,14 @@ const Index = () => {
           className="relative z-20 h-full flex flex-col items-center justify-center text-center px-6"
           style={{ opacity: heroOpacity }}
         >
-          <motion.p
+          {/* <motion.p
             className="text-label text-primary-foreground/70 mb-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
           >
             Professional Photography Studio
-          </motion.p>
+          </motion.p> */}
 
           <motion.h1
             className="font-heading text-5xl md:text-7xl lg:text-8xl font-light text-primary-foreground tracking-tight max-w-5xl"
@@ -152,12 +135,14 @@ const Index = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.8 }}
           >
-            <Link
-              to="/contact"
+            <a
+              href="https://wa.me/919925311820"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-4 bg-primary-foreground text-warm-900 font-body text-sm font-medium tracking-wider uppercase hover:bg-primary-foreground/90 transition-colors duration-300"
             >
               Book a Session <ArrowUpRight size={16} />
-            </Link>
+            </a>
             <Link
               to="/portfolio"
               className="inline-flex items-center gap-2 px-8 py-4 border border-primary-foreground/40 text-primary-foreground font-body text-sm font-medium tracking-wider uppercase hover:bg-primary-foreground/10 transition-colors duration-300"
@@ -185,7 +170,7 @@ const Index = () => {
       {/* ── Stats ── */}
       <section className="py-20 bg-secondary">
         <div className="container mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {stats.map((stat, i) => (
               <div key={i} className="stat-item text-center">
                 <p className="font-heading text-4xl md:text-5xl font-light text-foreground">{stat.number}</p>
@@ -204,7 +189,7 @@ const Index = () => {
               className="img-reveal"
               initial={{ opacity: 0, x: -60 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.1 }}
               transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
               <img
@@ -217,10 +202,10 @@ const Index = () => {
             <motion.div
               initial={{ opacity: 0, x: 60 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.1 }}
               transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
             >
-              <p className="text-label text-muted-foreground mb-4">About the Studio</p>
+              {/* <p className="text-label text-muted-foreground mb-4">About the Studio</p> */}
               <AnimatedText
                 text="Where Every Click Tells a Story"
                 as="h2"
@@ -247,21 +232,23 @@ const Index = () => {
       </section>
 
       {/* ── Marquee ── */}
-      <section className="marquee-section py-12 border-y border-border overflow-hidden">
-        <div className="marquee-text flex whitespace-nowrap gap-12">
-          {[...Array(4)].map((_, i) => (
-            <span key={i} className="font-heading text-6xl md:text-8xl font-light text-muted-foreground/20 flex items-center gap-12">
-              Baby Shoots <span className="w-3 h-3 rounded-full bg-muted-foreground/20 inline-block" /> Maternity <span className="w-3 h-3 rounded-full bg-muted-foreground/20 inline-block" /> Newborn <span className="w-3 h-3 rounded-full bg-muted-foreground/20 inline-block" /> Kids Photography <span className="w-3 h-3 rounded-full bg-muted-foreground/20 inline-block" />
-            </span>
-          ))}
-        </div>
+      <section className="marquee-section py-6 md:py-12 border-y border-border overflow-hidden flex w-full bg-background">
+        {[1, 2].map((block) => (
+          <div key={block} className="marquee-text flex animate-marquee whitespace-nowrap gap-6 md:gap-12 min-w-full shrink-0 justify-around pl-6 md:pl-12">
+            {[...Array(4)].map((_, i) => (
+              <span key={`${block}-${i}`} className="font-heading text-4xl md:text-8xl font-light text-muted-foreground/20 flex items-center gap-6 md:gap-12 pr-6 md:pr-12">
+                Baby Shoots <span className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-muted-foreground/20 inline-block" /> Maternity <span className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-muted-foreground/20 inline-block" /> Newborn <span className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-muted-foreground/20 inline-block" /> Kids Photography <span className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-muted-foreground/20 inline-block" />
+              </span>
+            ))}
+          </div>
+        ))}
       </section>
 
       {/* ── Services Preview ── */}
       <section ref={servicesRef} className="py-24 md:py-32">
         <div className="container mx-auto px-6 md:px-12">
           <div className="text-center mb-16">
-            <p className="text-label text-muted-foreground mb-4">What We Offer</p>
+            {/* <p className="text-label text-muted-foreground mb-4">What We Offer</p> */}
             <AnimatedText
               text="Our Services"
               as="h2"
@@ -278,7 +265,7 @@ const Index = () => {
             ].map((service, i) => (
               <div
                 key={i}
-                className="service-card group p-8 bg-card border border-border hover:border-foreground/20 transition-all duration-500"
+                className="service-card group p-8 bg-card border border-border hover:border-foreground/20 transition-colors duration-500"
               >
                 <service.icon className="text-accent mb-6" size={28} strokeWidth={1.5} />
                 <h3 className="font-heading text-2xl font-light text-foreground mb-3">{service.title}</h3>
@@ -302,7 +289,7 @@ const Index = () => {
         <div className="container mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
             <div>
-              <p className="text-label text-muted-foreground mb-4">Selected Work</p>
+              {/* <p className="text-label text-muted-foreground mb-4">Selected Work</p> */}
               <AnimatedText
                 text="Our Portfolio"
                 as="h2"
@@ -324,7 +311,7 @@ const Index = () => {
                 className="img-reveal relative group cursor-pointer overflow-hidden"
                 initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.1 }}
                 transition={{ duration: 0.8, delay: i * 0.15 }}
               >
                 <Link to="/portfolio">
@@ -335,8 +322,8 @@ const Index = () => {
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
-                  <div className="absolute inset-0 bg-warm-900/0 group-hover:bg-warm-900/40 transition-colors duration-500 flex items-end p-8">
-                    <div className="translate-y-8 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <div className="absolute inset-0 bg-warm-900/40 lg:bg-warm-900/0 group-hover:bg-warm-900/40 transition-colors duration-500 flex items-end p-8">
+                    <div className="lg:translate-y-8 lg:group-hover:translate-y-0 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-500">
                       <p className="text-label text-primary-foreground/70 mb-1">Category</p>
                       <h3 className="font-heading text-3xl text-primary-foreground font-light">{item.title}</h3>
                     </div>
@@ -352,7 +339,7 @@ const Index = () => {
       <section className="py-24 md:py-32">
         <div className="container mx-auto px-6 md:px-12">
           <div className="text-center mb-16">
-            <p className="text-label text-muted-foreground mb-4">What People Say</p>
+            {/* <p className="text-label text-muted-foreground mb-4">What People Say</p> */}
             <AnimatedText
               text="Client Stories"
               as="h2"
@@ -367,7 +354,7 @@ const Index = () => {
                 className="p-8 border border-border"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.1 }}
                 transition={{ duration: 0.6, delay: i * 0.15 }}
               >
                 <div className="flex gap-1 mb-6">
@@ -389,28 +376,30 @@ const Index = () => {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-24 md:py-32 bg-warm-900">
+      <section className="py-24 md:py-32 bg-secondary">
         <div className="container mx-auto px-6 md:px-12 text-center">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.1 }}
             transition={{ duration: 0.8 }}
           >
-            <p className="text-label text-primary-foreground/50 mb-6">Ready to Create Memories?</p>
-            <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl font-light text-primary-foreground tracking-tight max-w-4xl mx-auto mb-8">
+            <p className="text-label text-muted-foreground mb-6">Ready to Create Memories?</p>
+            <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl font-light text-foreground tracking-tight max-w-4xl mx-auto mb-8">
               Let's Capture Your Story Together
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-primary-foreground text-warm-900 font-body text-sm font-medium tracking-wider uppercase hover:bg-primary-foreground/90 transition-colors duration-300"
+              <a
+                href="https://wa.me/919925311820"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-background font-body text-sm font-medium tracking-wider uppercase hover:bg-foreground/90 transition-colors duration-300"
               >
                 Book Now <ArrowUpRight size={16} />
-              </Link>
+              </a>
               <Link
                 to="/services"
-                className="inline-flex items-center gap-2 px-8 py-4 border border-primary-foreground/30 text-primary-foreground font-body text-sm font-medium tracking-wider uppercase hover:bg-primary-foreground/10 transition-colors duration-300"
+                className="inline-flex items-center gap-2 px-8 py-4 border border-border text-foreground font-body text-sm font-medium tracking-wider uppercase hover:bg-foreground/5 transition-colors duration-300"
               >
                 View Pricing
               </Link>

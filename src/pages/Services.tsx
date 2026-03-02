@@ -125,10 +125,10 @@ const Services = () => {
                 className={`p-10 border border-border hover:border-foreground/20 transition-all duration-500 ${
                   service.featured ? 'bg-card' : ''
                 }`}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: i * 0.1 }}
+                viewport={{ once: false, amount: 0.1 }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
               >
                 <div className="flex justify-between items-start mb-6">
                   <div>
@@ -149,12 +149,14 @@ const Services = () => {
                     </li>
                   ))}
                 </ul>
-                <Link
-                  to="/contact"
+                <a
+                  href="https://wa.me/919925311820"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-foreground text-background font-body text-sm font-medium tracking-wider uppercase hover:bg-foreground/90 transition-colors duration-300 w-full justify-center"
                 >
                   Book This Session <ArrowUpRight size={14} />
-                </Link>
+                </a>
               </motion.div>
             ))}
           </div>
@@ -182,10 +184,10 @@ const Services = () => {
                     ? 'border-foreground bg-card'
                     : 'border-border hover:border-foreground/20'
                 }`}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: i * 0.15 }}
+                viewport={{ once: false, amount: 0.1 }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
               >
                 {pkg.featured && (
                   <p className="text-label text-accent mb-4">Most Popular</p>
@@ -202,8 +204,10 @@ const Services = () => {
                     </li>
                   ))}
                 </ul>
-                <Link
-                  to="/contact"
+                <a
+                  href="https://wa.me/919925311820"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`inline-flex items-center gap-2 px-6 py-3 font-body text-sm font-medium tracking-wider uppercase transition-colors duration-300 w-full justify-center ${
                     pkg.featured
                       ? 'bg-foreground text-background hover:bg-foreground/90'
@@ -211,7 +215,7 @@ const Services = () => {
                   }`}
                 >
                   Get Started <ArrowUpRight size={14} />
-                </Link>
+                </a>
               </motion.div>
             ))}
           </div>
@@ -224,18 +228,20 @@ const Services = () => {
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.1 }}
           >
             <p className="text-label text-primary-foreground/50 mb-6">Custom Requirements?</p>
             <h2 className="font-heading text-4xl md:text-6xl font-light text-primary-foreground max-w-3xl mx-auto mb-8">
               We Create Custom Packages Too
             </h2>
-            <Link
-              to="/contact"
+            <a
+              href="https://wa.me/919925311820"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-4 bg-primary-foreground text-warm-900 font-body text-sm font-medium tracking-wider uppercase"
             >
               Contact Us <ArrowUpRight size={16} />
-            </Link>
+            </a>
           </motion.div>
         </div>
       </section>

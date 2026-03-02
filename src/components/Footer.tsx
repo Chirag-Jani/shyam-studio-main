@@ -19,10 +19,10 @@ const Footer = () => {
             <nav className="flex flex-col gap-3">
               {[
                 { label: 'Home', path: '/' },
-                { label: 'Services', path: '/services' },
-                { label: 'Portfolio', path: '/portfolio' },
-                { label: 'About', path: '/about' },
-                { label: 'Reviews', path: '/reviews' },
+                // { label: 'Services', path: '/services' },
+                // { label: 'Portfolio', path: '/portfolio' },
+                // { label: 'About', path: '/about' },
+                // { label: 'Reviews', path: '/reviews' },
                 { label: 'Contact', path: '/contact' },
               ].map((link) => (
                 <Link
@@ -39,17 +39,26 @@ const Footer = () => {
           <div>
             <p className="text-label text-primary-foreground/40 mb-6">Get in Touch</p>
             <div className="flex flex-col gap-3 font-body text-sm font-light text-primary-foreground/60">
-              <p>123 Photography Lane</p>
-              <p>Mumbai, Maharashtra 400001</p>
-              <p>+91 98765 43210</p>
+              <a 
+                href="https://maps.google.com/maps?q=201%20Opera%20Business%20Hub%20Nr.By%20Savji%20Korat%20Bridge,%20Ljamni%20Chowk%20Mota%20Varachha,%20Surat"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-primary-foreground transition-colors"
+              >
+                201 Opera Business Hub Nr.By Savji Korat Bridge,<br />
+                Ljamni Chowk Mota Varachha, Surat.
+              </a>
+              <p>+91 99253 11820</p>
               <p>hello@shyamstudio.com</p>
             </div>
-            <Link
-              to="/contact"
+            <a
+              href="https://wa.me/919925311820"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 mt-6 text-label text-primary-foreground hover:text-primary-foreground/80 transition-colors"
             >
               Book a Session <ArrowUpRight size={14} />
-            </Link>
+            </a>
           </div>
         </div>
 
@@ -57,13 +66,10 @@ const Footer = () => {
           className="border-t border-primary-foreground/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.1 }}
         >
-          <p className="font-body text-xs font-light text-primary-foreground/40">
-            2024 Shyam Studio. All rights reserved.
-          </p>
-          <p className="font-body text-xs font-light text-primary-foreground/40">
-            Crafted with care
+          <p className="font-body text-xs font-light text-primary-foreground/40 text-center w-full">
+            &copy; {new Date().getFullYear()} Shyam Studio. All rights reserved.
           </p>
         </motion.div>
       </div>

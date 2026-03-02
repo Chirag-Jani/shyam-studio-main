@@ -98,7 +98,7 @@ const Reviews = () => {
                 className="break-inside-avoid p-8 border border-border hover:border-foreground/20 transition-all duration-500"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.1 }}
                 transition={{ duration: 0.6, delay: i * 0.08 }}
               >
                 <Quote size={24} className="text-muted-foreground/30 mb-4" />
@@ -125,17 +125,19 @@ const Reviews = () => {
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.1 }}
           >
             <h2 className="font-heading text-4xl md:text-6xl font-light text-primary-foreground max-w-3xl mx-auto mb-8">
               Join Our Happy Families
             </h2>
-            <Link
-              to="/contact"
+            <a
+              href="https://wa.me/919925311820"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-4 bg-primary-foreground text-warm-900 font-body text-sm font-medium tracking-wider uppercase"
             >
               Book Your Session <ArrowUpRight size={16} />
-            </Link>
+            </a>
           </motion.div>
         </div>
       </section>

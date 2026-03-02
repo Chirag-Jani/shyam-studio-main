@@ -50,10 +50,7 @@ const Portfolio = () => {
           duration: 0.8,
           delay: i * 0.05,
           ease: 'power3.out',
-          scrollTrigger: {
-            trigger: item,
-            start: 'top 90%',
-          },
+          scrollTrigger: { trigger: item, start: 'top 90%', toggleActions: 'play reverse play reverse' },
         });
       });
     }, galleryRef);
@@ -143,9 +140,9 @@ const Portfolio = () => {
                         item.aspect === 'landscape' ? 'aspect-[4/3]' : 'aspect-[3/4]'
                       }`}
                     />
-                    <div className="absolute inset-0 bg-warm-900/0 group-hover:bg-warm-900/50 transition-all duration-500 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-warm-900/40 lg:bg-warm-900/0 group-hover:bg-warm-900/50 transition-all duration-500 flex items-center justify-center">
                       <motion.div
-                        className="text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        className="text-center lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500"
                         initial={false}
                       >
                         <p className="font-heading text-2xl text-primary-foreground font-light">{item.title}</p>

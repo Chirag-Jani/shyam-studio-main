@@ -42,7 +42,8 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Thank you for your inquiry! We will get back to you within 24 hours.');
+    const text = `Hi Shyam Studio,\nI am ${formData.name}. ${formData.email ? `My email is ${formData.email}. ` : ''}I am interested in the ${formData.service || 'photography'} service.\n\nMessage: ${formData.message}`;
+    window.open(`https://wa.me/919925311820?text=${encodeURIComponent(text)}`, '_blank');
     setFormData({ name: '', email: '', phone: '', service: '', message: '' });
   };
 
@@ -74,7 +75,7 @@ const Contact = () => {
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.1 }}
               transition={{ duration: 0.8 }}
             >
               <h2 className="font-heading text-3xl font-light text-foreground mb-8">Contact Information</h2>
@@ -84,17 +85,22 @@ const Contact = () => {
                   <MapPin size={20} className="text-accent mt-1 flex-shrink-0" />
                   <div>
                     <p className="font-body text-sm font-medium text-foreground">Studio Location</p>
-                    <p className="text-body text-muted-foreground text-sm mt-1">
-                      123 Photography Lane, Andheri West,<br />
-                      Mumbai, Maharashtra 400058
-                    </p>
+                    <a 
+                      href="https://maps.google.com/maps?q=201%20Opera%20Business%20Hub%20Nr.By%20Savji%20Korat%20Bridge,%20Ljamni%20Chowk%20Mota%20Varachha,%20Surat"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-body text-muted-foreground text-sm mt-1 hover:text-foreground hover:underline block"
+                    >
+                      201 Opera Business Hub Nr.By Savji Korat Bridge,<br />
+                      Ljamni Chowk Mota Varachha, Surat.
+                    </a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <Phone size={20} className="text-accent mt-1 flex-shrink-0" />
                   <div>
                     <p className="font-body text-sm font-medium text-foreground">Phone</p>
-                    <p className="text-body text-muted-foreground text-sm mt-1">+91 98765 43210</p>
+                    <p className="text-body text-muted-foreground text-sm mt-1">+91 99253 11820</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -116,13 +122,17 @@ const Contact = () => {
                 </div>
               </div>
 
-              {/* Map placeholder */}
-              <div className="aspect-video bg-card border border-border flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin size={32} className="mx-auto text-muted-foreground mb-2" />
-                  <p className="text-label text-muted-foreground">Studio Location</p>
-                  <p className="text-body text-muted-foreground text-sm mt-1">Andheri West, Mumbai</p>
-                </div>
+              {/* Map embedded */}
+              <div className="aspect-video bg-card border border-border flex items-center justify-center overflow-hidden">
+                <iframe 
+                  src="https://maps.google.com/maps?q=201%20Opera%20Business%20Hub%20Nr.By%20Savji%20Korat%20Bridge,%20Ljamni%20Chowk%20Mota%20Varachha,%20Surat&t=&z=14&ie=UTF8&iwloc=&output=embed" 
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0 }} 
+                  allowFullScreen={true} 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
               </div>
             </motion.div>
 
@@ -130,7 +140,7 @@ const Contact = () => {
             <motion.div
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <h2 className="font-heading text-3xl font-light text-foreground mb-8">Send Us a Message</h2>
@@ -166,7 +176,7 @@ const Contact = () => {
                       value={formData.phone}
                       onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
                       className="w-full px-4 py-3 bg-transparent border border-border text-foreground font-body text-sm focus:outline-none focus:border-foreground transition-colors duration-300"
-                      placeholder="+91 98765 43210"
+                      placeholder="+91 99253 11820"
                     />
                   </div>
                 </div>
@@ -227,7 +237,7 @@ const Contact = () => {
                 className="border-b border-border"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.1 }}
                 transition={{ delay: i * 0.08 }}
               >
                 <button

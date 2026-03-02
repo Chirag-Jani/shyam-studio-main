@@ -5,10 +5,10 @@ import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { label: 'Home', path: '/' },
-  { label: 'Services', path: '/services' },
-  { label: 'Portfolio', path: '/portfolio' },
-  { label: 'About', path: '/about' },
-  { label: 'Reviews', path: '/reviews' },
+  // { label: 'Services', path: '/services' },
+  // { label: 'Portfolio', path: '/portfolio' },
+  // { label: 'About', path: '/about' },
+  // { label: 'Reviews', path: '/reviews' },
   { label: 'Contact', path: '/contact' },
 ];
 
@@ -40,7 +40,7 @@ const Navbar = () => {
         <div className="container mx-auto px-6 md:px-12">
           <div className="flex items-center justify-between h-20">
             <Link to="/" className="relative z-50">
-              <h2 className="font-heading text-2xl font-light tracking-wider text-foreground">
+              <h2 className={`font-heading text-2xl font-light tracking-wider transition-colors duration-500 ${!scrolled && location.pathname === '/' && !isOpen ? 'text-primary-foreground' : 'text-foreground'}`}>
                 SHYAM STUDIO
               </h2>
             </Link>
@@ -53,8 +53,8 @@ const Navbar = () => {
                   to={link.path}
                   className={`text-label line-reveal transition-colors duration-300 ${
                     location.pathname === link.path
-                      ? 'text-foreground'
-                      : 'text-muted-foreground hover:text-foreground'
+                      ? (!scrolled && location.pathname === '/' ? 'text-primary-foreground' : 'text-foreground')
+                      : (!scrolled && location.pathname === '/' ? 'text-primary-foreground/70 hover:text-primary-foreground' : 'text-muted-foreground hover:text-foreground')
                   }`}
                 >
                   {link.label}
@@ -64,7 +64,7 @@ const Navbar = () => {
 
             {/* Mobile Toggle */}
             <button
-              className="md:hidden relative z-50 p-2 text-foreground"
+              className={`md:hidden relative z-50 p-2 transition-colors duration-500 ${!scrolled && location.pathname === '/' && !isOpen ? 'text-primary-foreground' : 'text-foreground'}`}
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
             >
