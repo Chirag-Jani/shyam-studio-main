@@ -63,13 +63,13 @@ const Portfolio = () => {
       {/* Hero */}
       <section className="py-24 md:py-32 bg-secondary">
         <div className="container mx-auto px-6 md:px-12 text-center">
-          <motion.p
+          {/* <motion.p
             className="text-label text-muted-foreground mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
             Our Work
-          </motion.p>
+          </motion.p> */}
           <AnimatedText
             text="Portfolio Gallery"
             as="h1"

@@ -19,9 +19,9 @@ const Footer = () => {
             <nav className="flex flex-col gap-3">
               {[
                 { label: 'Home', path: '/' },
-                // { label: 'Services', path: '/services' },
-                // { label: 'Portfolio', path: '/portfolio' },
-                // { label: 'About', path: '/about' },
+                { label: 'Services', path: '/services' },
+                { label: 'Portfolio', path: '/portfolio' },
+                { label: 'About', path: '/about' },
                 // { label: 'Reviews', path: '/reviews' },
                 { label: 'Contact', path: '/contact' },
               ].map((link) => (

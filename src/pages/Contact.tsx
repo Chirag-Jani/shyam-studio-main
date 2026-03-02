@@ -52,13 +52,13 @@ const Contact = () => {
       {/* Hero */}
       <section className="py-24 md:py-32 bg-secondary">
         <div className="container mx-auto px-6 md:px-12 text-center">
-          <motion.p
+          {/* <motion.p
             className="text-label text-muted-foreground mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
             Get in Touch
-          </motion.p>
+          </motion.p> */}
           <AnimatedText
             text="Let's Create Something Beautiful"
             as="h1"
@@ -222,7 +222,7 @@ const Contact = () => {
       <section className="py-24 md:py-32 bg-secondary">
         <div className="container mx-auto px-6 md:px-12 max-w-3xl">
           <div className="text-center mb-16">
-            <p className="text-label text-muted-foreground mb-4">Common Questions</p>
+           {/*  <p className="text-label text-muted-foreground mb-4">Common Questions</p> */}
             <AnimatedText
               text="Frequently Asked Questions"
               as="h2"

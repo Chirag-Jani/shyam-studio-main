@@ -5,9 +5,9 @@ import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { label: 'Home', path: '/' },
-  // { label: 'Services', path: '/services' },
-  // { label: 'Portfolio', path: '/portfolio' },
-  // { label: 'About', path: '/about' },
+  { label: 'Services', path: '/services' },
+  { label: 'Portfolio', path: '/portfolio' },
+  { label: 'About', path: '/about' },
   // { label: 'Reviews', path: '/reviews' },
   { label: 'Contact', path: '/contact' },
 ];
@@ -47,19 +47,30 @@ const Navbar = () => {
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className={`text-label line-reveal transition-colors duration-300 ${
-                    location.pathname === link.path
-                      ? (!scrolled && location.pathname === '/' ? 'text-primary-foreground' : 'text-foreground')
-                      : (!scrolled && location.pathname === '/' ? 'text-primary-foreground/70 hover:text-primary-foreground' : 'text-muted-foreground hover:text-foreground')
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.path;
+                return (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className={`relative text-label transition-colors duration-300 ${
+                      isActive
+                        ? (!scrolled && location.pathname === '/' ? 'text-primary-foreground' : 'text-foreground')
+                        : (!scrolled && location.pathname === '/' ? 'text-primary-foreground/70 hover:text-primary-foreground' : 'text-muted-foreground hover:text-foreground')
+                    }`}
+                  >
+                    {link.label}
+                    {isActive && (
+                      <motion.div
+                        layoutId="navbar-indicator"
+                        className={`absolute -bottom-2 left-0 right-0 h-px ${!scrolled && location.pathname === '/' ? 'bg-primary-foreground' : 'bg-foreground'}`}
+                        initial={false}
+                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                      />
+                    )}
+                  </Link>
+                );
+              })}
             </nav>
 
             {/* Mobile Toggle */}
@@ -85,26 +96,38 @@ const Navbar = () => {
             transition={{ duration: 0.6, ease: [0.65, 0, 0.35, 1] }}
           >
             <nav className="flex flex-col items-center gap-8">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.path}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 30 }}
-                  transition={{ delay: i * 0.08, duration: 0.4 }}
-                >
-                  <Link
-                    to={link.path}
-                    className={`font-heading text-4xl font-light tracking-wide transition-colors ${
-                      location.pathname === link.path
-                        ? 'text-foreground'
-                        : 'text-muted-foreground hover:text-foreground'
-                    }`}
+              {navLinks.map((link, i) => {
+                const isActive = location.pathname === link.path;
+                return (
+                  <motion.div
+                    key={link.path}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 30 }}
+                    transition={{ delay: i * 0.08, duration: 0.4 }}
                   >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      to={link.path}
+                      className={`relative font-heading text-4xl font-light tracking-wide transition-colors ${
+                        isActive
+                          ? 'text-foreground'
+                          : 'text-muted-foreground hover:text-foreground'
+                      }`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {link.label}
+                      {isActive && (
+                        <motion.div
+                          layoutId="mobile-navbar-indicator"
+                          className="absolute -bottom-2 left-0 right-0 h-[2px] bg-foreground"
+                          initial={false}
+                          transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                        />
+                      )}
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </nav>
           </motion.div>
         )}

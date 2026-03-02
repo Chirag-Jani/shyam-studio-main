@@ -96,7 +96,7 @@ const Index = () => {
           <img
             src={heroImg}
             alt="Shyam Studio"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-[center_25%] md:object-center"
           />
         </motion.div>
 
@@ -153,7 +153,7 @@ const Index = () => {
         </motion.div>
 
         {/* Scroll indicator */}
-        <motion.div
+       {/*  <motion.div
           className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -164,7 +164,7 @@ const Index = () => {
             animate={{ scaleY: [1, 0.5, 1] }}
             transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
           />
-        </motion.div>
+        </motion.div> */}
       </section>
 
       {/* ── Stats ── */}
@@ -258,10 +258,10 @@ const Index = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { icon: Camera, title: 'Baby Shoots', desc: 'Milestone moments from 3 months to first birthday', price: 'From 8,999' },
-              { icon: Heart, title: 'Maternity', desc: 'Celebrating the beautiful journey of motherhood', price: 'From 12,999' },
-              { icon: Star, title: 'Newborn', desc: 'First days captured with gentle, artistic precision', price: 'From 15,999' },
-              { icon: Users, title: 'Baby & Kids', desc: 'Playful sessions that capture genuine personality', price: 'From 7,999' },
+              { icon: Camera, title: 'Baby Shoots', desc: 'Milestone moments from 3 months to first birthday' },
+              { icon: Heart, title: 'Maternity', desc: 'Celebrating the beautiful journey of motherhood' },
+              { icon: Star, title: 'Newborn', desc: 'First days captured with gentle, artistic precision' },
+              { icon: Users, title: 'Baby & Kids', desc: 'Playful sessions that capture genuine personality' },
             ].map((service, i) => (
               <div
                 key={i}
@@ -269,9 +269,8 @@ const Index = () => {
               >
                 <service.icon className="text-accent mb-6" size={28} strokeWidth={1.5} />
                 <h3 className="font-heading text-2xl font-light text-foreground mb-3">{service.title}</h3>
-                <p className="text-body text-muted-foreground mb-4 text-sm">{service.desc}</p>
-                <p className="font-heading text-lg text-foreground">{service.price}</p>
-                <div className="mt-6 h-px bg-border group-hover:bg-foreground/20 transition-colors duration-500" />
+                <p className="text-body text-muted-foreground text-sm">{service.desc}</p>
+                <div className="mt-8 h-px bg-border group-hover:bg-foreground/20 transition-colors duration-500" />
                 <Link
                   to="/services"
                   className="mt-4 inline-flex items-center gap-2 text-label text-muted-foreground group-hover:text-foreground transition-colors duration-300"

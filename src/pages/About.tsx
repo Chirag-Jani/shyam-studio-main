@@ -51,13 +51,13 @@ const About = () => {
         <div className="container mx-auto px-6 md:px-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div>
-              <motion.p
+              {/* <motion.p
                 className="text-label text-muted-foreground mb-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
               >
                 Our Story
-              </motion.p>
+              </motion.p> */}
               <AnimatedText
                 text="The Heart Behind the Lens"
                 as="h1"

@@ -82,11 +82,11 @@ const App = () => {
         <Toaster />
         <Sonner />
         {loading && <LoadingScreen onComplete={handleLoadingComplete} />}
-        <SmoothScroll>
-          <BrowserRouter>
+        <BrowserRouter>
+          <SmoothScroll>
             <AppRoutes />
-          </BrowserRouter>
-        </SmoothScroll>
+          </SmoothScroll>
+        </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
   );
