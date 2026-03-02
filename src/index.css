@@ -2,95 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 33 30% 95%;
+    --foreground: 25 45% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 33 28% 92%;
+    --card-foreground: 25 45% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 33 30% 95%;
+    --popover-foreground: 25 45% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 20 40% 28%;
+    --primary-foreground: 35 40% 95%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 30 22% 87%;
+    --secondary-foreground: 25 45% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 28 18% 82%;
+    --muted-foreground: 25 18% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 18 35% 40%;
+    --accent-foreground: 35 40% 95%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 28 20% 78%;
+    --input: 28 20% 78%;
+    --ring: 20 40% 28%;
 
-    --radius: 0.5rem;
+    --radius: 0.25rem;
 
-    --sidebar-background: 0 0% 98%;
+    --sidebar-background: 33 28% 92%;
+    --sidebar-foreground: 25 45% 15%;
+    --sidebar-primary: 20 40% 28%;
+    --sidebar-primary-foreground: 35 40% 95%;
+    --sidebar-accent: 30 22% 87%;
+    --sidebar-accent-foreground: 25 45% 15%;
+    --sidebar-border: 28 20% 78%;
+    --sidebar-ring: 20 40% 28%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'Outfit', sans-serif;
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --warm-50: 33 35% 97%;
+    --warm-100: 33 30% 93%;
+    --warm-200: 30 25% 85%;
+    --warm-300: 28 20% 75%;
+    --warm-400: 25 22% 55%;
+    --warm-500: 22 30% 40%;
+    --warm-600: 20 35% 32%;
+    --warm-700: 20 40% 25%;
+    --warm-800: 22 42% 18%;
+    --warm-900: 25 45% 12%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --background: 25 30% 8%;
+    --foreground: 33 30% 92%;
+    --card: 25 28% 12%;
+    --card-foreground: 33 30% 92%;
+    --popover: 25 30% 8%;
+    --popover-foreground: 33 30% 92%;
+    --primary: 33 30% 85%;
+    --primary-foreground: 25 40% 12%;
+    --secondary: 25 20% 18%;
+    --secondary-foreground: 33 30% 92%;
+    --muted: 25 15% 20%;
+    --muted-foreground: 28 15% 60%;
+    --accent: 30 25% 35%;
+    --accent-foreground: 33 30% 92%;
+    --border: 25 15% 22%;
+    --input: 25 15% 22%;
+    --ring: 33 30% 85%;
+    --sidebar-background: 25 28% 10%;
+    --sidebar-foreground: 33 30% 92%;
+    --sidebar-primary: 33 30% 85%;
+    --sidebar-primary-foreground: 25 40% 12%;
+    --sidebar-accent: 25 20% 18%;
+    --sidebar-accent-foreground: 33 30% 92%;
+    --sidebar-border: 25 15% 22%;
+    --sidebar-ring: 33 30% 85%;
   }
 }
 
@@ -101,5 +94,96 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    overflow-x: hidden;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+@layer components {
+  .heading-display {
+    font-family: var(--font-heading);
+    @apply font-light tracking-tight;
+  }
+
+  .heading-section {
+    font-family: var(--font-heading);
+    @apply text-4xl md:text-5xl lg:text-6xl font-light tracking-tight;
+  }
+
+  .text-body {
+    font-family: var(--font-body);
+    @apply text-base font-light leading-relaxed;
+  }
+
+  .text-label {
+    font-family: var(--font-body);
+    @apply text-xs uppercase tracking-[0.2em] font-medium;
+  }
+
+  .line-reveal {
+    @apply relative overflow-hidden;
+  }
+
+  .line-reveal::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-px bg-foreground;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  .line-reveal:hover::after {
+    transform: scaleX(1);
+  }
+
+  .img-reveal {
+    @apply relative overflow-hidden;
+  }
+
+  .img-reveal img {
+    transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .img-reveal:hover img {
+    transform: scale(1.05);
+  }
+
+  .shutter-blade {
+    position: absolute;
+    background: hsl(var(--warm-900));
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .will-change-transform {
+    will-change: transform;
+  }
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
