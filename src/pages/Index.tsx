@@ -383,7 +383,7 @@ const Index = () => {
             viewport={{ once: false, amount: 0.1 }}
             transition={{ duration: 0.8 }}
           >
-            <p className="text-label text-muted-foreground mb-6">Ready to Create Memories?</p>
+            {/* <p className="text-label text-muted-foreground mb-6">Ready to Create Memories?</p> */}
             <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl font-light text-foreground tracking-tight max-w-4xl mx-auto mb-8">
               Let's Capture Your Story Together
             </h2>

@@ -13,7 +13,7 @@ const AnimatedText = ({ text, className = '', as: Tag = 'h2', delay = 0, splitBy
   const items = splitBy === 'words' ? text.split(' ') : text.split('');
 
   return (
-    <Tag className={`${className} overflow-hidden`}>
+    <Tag className={className}>
       {items.map((item, i) => (
         <motion.span
           key={i}

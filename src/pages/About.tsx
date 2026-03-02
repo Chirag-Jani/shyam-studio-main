@@ -118,7 +118,7 @@ const About = () => {
       <section className="py-24 md:py-32 bg-secondary">
         <div className="container mx-auto px-6 md:px-12">
           <div className="text-center mb-16">
-            <p className="text-label text-muted-foreground mb-4">What Drives Us</p>
+           {/*  <p className="text-label text-muted-foreground mb-4">What Drives Us</p> */}
             <AnimatedText text="Our Values" as="h2" className="heading-section text-foreground" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -144,7 +144,7 @@ const About = () => {
       <section className="py-24 md:py-32" ref={timelineRef}>
         <div className="container mx-auto px-6 md:px-12">
           <div className="text-center mb-16">
-            <p className="text-label text-muted-foreground mb-4">Our Journey</p>
+            {/* <p className="text-label text-muted-foreground mb-4">Our Journey</p> */}
             <AnimatedText text="Through the Years" as="h2" className="heading-section text-foreground" />
           </div>
           <div className="max-w-3xl mx-auto">
@@ -166,14 +166,14 @@ const About = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-24 md:py-32 bg-warm-900">
+      <section className="py-24 md:py-32 bg-secondary">
         <div className="container mx-auto px-6 md:px-12 text-center">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.1 }}
           >
-            <h2 className="font-heading text-4xl md:text-6xl font-light text-primary-foreground max-w-3xl mx-auto mb-8">
+            <h2 className="font-heading text-4xl md:text-6xl font-light text-foreground max-w-3xl mx-auto mb-8">
               Let's Work Together
             </h2>
             <Link
