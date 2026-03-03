@@ -1,14 +1,11 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import AnimatedText from '@/components/AnimatedText';
 import babyImg from '@/assets/portfolio-baby.jpg';
 import newbornImg from '@/assets/portfolio-newborn.jpg';
 import kidsImg from '@/assets/portfolio-kids.jpg';
 import maternityImg from '@/assets/portfolio-maternity.jpg';
 
-gsap.registerPlugin(ScrollTrigger);
 
 const categories = [
   { id: 'all', label: 'All' },
@@ -36,27 +33,7 @@ const galleryItems = [
 const Portfolio = () => {
   const [active, setActive] = useState('all');
   const [selectedImage, setSelectedImage] = useState<typeof galleryItems[0] | null>(null);
-  const galleryRef = useRef<HTMLDivElement>(null);
-
   const filtered = active === 'all' ? galleryItems : galleryItems.filter(i => i.category === active);
-
-  useEffect(() => {
-    if (!galleryRef.current) return;
-    const ctx = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>('.gallery-item').forEach((item, i) => {
-        gsap.from(item, {
-          y: 100,
-          opacity: 0,
-          duration: 0.8,
-          delay: i * 0.05,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: item, start: 'top 90%', toggleActions: 'play reverse play reverse' },
-        });
-      });
-    }, galleryRef);
-
-    return () => ctx.revert();
-  }, [active]);
 
   return (
     <main className="pt-20">
@@ -110,7 +87,7 @@ const Portfolio = () => {
 
       {/* Gallery */}
       <section className="py-16 md:py-24">
-        <div className="container mx-auto px-6 md:px-12" ref={galleryRef}>
+        <div className="container mx-auto px-6 md:px-12">
           <AnimatePresence mode="wait">
             <motion.div
               key={active}

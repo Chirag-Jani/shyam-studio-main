@@ -121,9 +121,17 @@ const Contact = () => {
                   </div>
                 </div>
               </div>
+            </motion.div>
 
-              {/* Map embedded */}
-              <div className="aspect-video bg-card border border-border flex items-center justify-center overflow-hidden">
+            {/* Form */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, amount: 0.1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              {/* Map embedded (Moved from left column) */}
+              <div className="w-full h-full min-h-[400px] bg-card border border-border flex items-center justify-center overflow-hidden">
                 <iframe 
                   src="https://maps.google.com/maps?q=201%20Opera%20Business%20Hub%20Nr.By%20Savji%20Korat%20Bridge,%20Ljamni%20Chowk%20Mota%20Varachha,%20Surat&t=&z=14&ie=UTF8&iwloc=&output=embed" 
                   width="100%" 
@@ -134,85 +142,82 @@ const Contact = () => {
                   referrerPolicy="no-referrer-when-downgrade"
                 ></iframe>
               </div>
-            </motion.div>
 
-            {/* Form */}
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false, amount: 0.1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <h2 className="font-heading text-3xl font-light text-foreground mb-8">Send Us a Message</h2>
-              
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="text-label text-muted-foreground block mb-2">Full Name</label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                    className="w-full px-4 py-3 bg-transparent border border-border text-foreground font-body text-sm focus:outline-none focus:border-foreground transition-colors duration-300"
-                    placeholder="Your full name"
-                  />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div>
-                    <label className="text-label text-muted-foreground block mb-2">Email</label>
-                    <input
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                      className="w-full px-4 py-3 bg-transparent border border-border text-foreground font-body text-sm focus:outline-none focus:border-foreground transition-colors duration-300"
-                      placeholder="your@email.com"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-label text-muted-foreground block mb-2">Phone</label>
-                    <input
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                      className="w-full px-4 py-3 bg-transparent border border-border text-foreground font-body text-sm focus:outline-none focus:border-foreground transition-colors duration-300"
-                      placeholder="+91 99253 11820"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="text-label text-muted-foreground block mb-2">Service Interested In</label>
-                  <select
-                    value={formData.service}
-                    onChange={(e) => setFormData(prev => ({ ...prev, service: e.target.value }))}
-                    className="w-full px-4 py-3 bg-transparent border border-border text-foreground font-body text-sm focus:outline-none focus:border-foreground transition-colors duration-300 appearance-none"
-                  >
-                    <option value="">Select a service</option>
-                    <option value="baby">Baby Shoots</option>
-                    <option value="maternity">Maternity</option>
-                    <option value="newborn">Newborn</option>
-                    <option value="kids">Baby & Kids</option>
-                    <option value="package">Package Deal</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="text-label text-muted-foreground block mb-2">Message</label>
-                  <textarea
-                    rows={5}
-                    value={formData.message}
-                    onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
-                    className="w-full px-4 py-3 bg-transparent border border-border text-foreground font-body text-sm focus:outline-none focus:border-foreground transition-colors duration-300 resize-none"
-                    placeholder="Tell us about your vision..."
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-background font-body text-sm font-medium tracking-wider uppercase hover:bg-foreground/90 transition-colors duration-300 w-full justify-center"
-                >
-                  Send Message <ArrowUpRight size={16} />
-                </button>
-              </form>
+              {/* Form Temporarily Disabled */}
+              {false && (
+                <>
+                  <h2 className="font-heading text-3xl font-light text-foreground mb-8">Send Us a Message</h2>
+                  
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+                      <label className="text-label text-muted-foreground block mb-2">Full Name</label>
+                      <input
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                        className="w-full px-4 py-3 bg-transparent border border-border text-foreground font-body text-sm focus:outline-none focus:border-foreground transition-colors duration-300"
+                        placeholder="Your full name"
+                      />
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      <div>
+                        <label className="text-label text-muted-foreground block mb-2">Email</label>
+                        <input
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                          className="w-full px-4 py-3 bg-transparent border border-border text-foreground font-body text-sm focus:outline-none focus:border-foreground transition-colors duration-300"
+                          placeholder="your@email.com"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-label text-muted-foreground block mb-2">Phone</label>
+                        <input
+                          type="tel"
+                          value={formData.phone}
+                          onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                          className="w-full px-4 py-3 bg-transparent border border-border text-foreground font-body text-sm focus:outline-none focus:border-foreground transition-colors duration-300"
+                          placeholder="+91 99253 11820"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-label text-muted-foreground block mb-2">Service Interested In</label>
+                      <select
+                        value={formData.service}
+                        onChange={(e) => setFormData(prev => ({ ...prev, service: e.target.value }))}
+                        className="w-full px-4 py-3 bg-transparent border border-border text-foreground font-body text-sm focus:outline-none focus:border-foreground transition-colors duration-300 appearance-none"
+                      >
+                        <option value="">Select a service</option>
+                        <option value="baby">Baby Shoots</option>
+                        <option value="maternity">Maternity</option>
+                        <option value="newborn">Newborn</option>
+                        <option value="kids">Baby & Kids</option>
+                        <option value="package">Package Deal</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-label text-muted-foreground block mb-2">Message</label>
+                      <textarea
+                        rows={5}
+                        value={formData.message}
+                        onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+                        className="w-full px-4 py-3 bg-transparent border border-border text-foreground font-body text-sm focus:outline-none focus:border-foreground transition-colors duration-300 resize-none"
+                        placeholder="Tell us about your vision..."
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      className="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-background font-body text-sm font-medium tracking-wider uppercase hover:bg-foreground/90 transition-colors duration-300 w-full justify-center"
+                    >
+                      Send Message <ArrowUpRight size={16} />
+                    </button>
+                  </form>
+                </>
+              )}
             </motion.div>
           </div>
         </div>
