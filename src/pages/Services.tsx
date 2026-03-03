@@ -107,7 +107,16 @@ const Services = () => {
                             <p className="text-label text-transparent mb-6 uppercase tracking-wider text-[10px] py-1.5 px-3 select-none" aria-hidden="true">-</p>
                           )}
                           
-                          <h3 className={`font-heading text-3xl font-light mb-2 transition-colors duration-500 ${textColor}`}>{pkg.title}</h3>
+                          <div className="flex items-start justify-between gap-4 mb-2">
+                            <h3 className={`font-heading text-3xl font-light transition-colors duration-500 ${textColor}`}>{pkg.title}</h3>
+                            <div className={`w-10 h-10 shrink-0 rounded-full flex items-center justify-center border transition-all duration-500 ${
+                              pkg.featured 
+                                ? (sectionIndex === 2 ? 'border-background/50 text-background group-hover:bg-background group-hover:text-foreground' : 'border-accent/50 text-accent group-hover:bg-accent group-hover:text-background')
+                                : (sectionIndex === 2 ? 'border-background/30 text-background group-hover:bg-background group-hover:text-foreground' : 'border-border text-foreground group-hover:bg-foreground group-hover:text-background')
+                            }`}>
+                               <ArrowUpRight size={18} className="transition-transform duration-500 group-hover:scale-110 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                            </div>
+                          </div>
                           <div className="flex items-end gap-1 mb-1">
                             <p className={`font-heading text-5xl font-medium tracking-tight transition-transform duration-500 group-hover:scale-105 origin-left ${textColor}`}>{pkg.price}</p>
                           </div>
