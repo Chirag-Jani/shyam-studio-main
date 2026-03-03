@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, MapPin, Phone, Mail, Instagram } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -38,18 +38,38 @@ const Footer = () => {
 
           <div>
             <p className="text-label text-primary-foreground/40 mb-6">Get in Touch</p>
-            <div className="flex flex-col gap-3 font-body text-sm font-light text-primary-foreground/60">
-              <a 
-                href="https://maps.google.com/maps?q=201%20Opera%20Business%20Hub%20Nr.By%20Savji%20Korat%20Bridge,%20Ljamni%20Chowk%20Mota%20Varachha,%20Surat"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-primary-foreground transition-colors"
-              >
-                201 Opera Business Hub Nr.By Savji Korat Bridge,<br />
-                Ljamni Chowk Mota Varachha, Surat.
-              </a>
-              <p>+91 99253 11820</p>
-              <p>hello@shyamstudio.com</p>
+            <div className="flex flex-col gap-4 font-body text-sm font-light text-primary-foreground/60">
+              <div className="flex items-start gap-3">
+                <MapPin size={16} className="mt-1 flex-shrink-0" />
+                <a 
+                  href="https://maps.google.com/maps?q=201%20Opera%20Business%20Hub%20Nr.By%20Savji%20Korat%20Bridge,%20Ljamni%20Chowk%20Mota%20Varachha,%20Surat"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary-foreground transition-colors"
+                >
+                  201 Opera Business Hub Nr.By Savji Korat Bridge,<br />
+                  Ljamni Chowk Mota Varachha, Surat.
+                </a>
+              </div>
+              <div className="flex items-center gap-3">
+                <Phone size={16} className="flex-shrink-0" />
+                <p>+91 99253 11820</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <Mail size={16} className="flex-shrink-0" />
+                <p>hello@shyamstudio.com</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <Instagram size={16} className="flex-shrink-0" />
+                <a 
+                  href="https://www.instagram.com/shyamstudio.surat/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary-foreground transition-colors"
+                >
+                  shyamstudio.surat
+                </a>
+              </div>
             </div>
             <a
               href="https://wa.me/919925311820"

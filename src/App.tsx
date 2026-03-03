@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import Index from "./pages/Index";
 import Services from "./pages/Services";
+import ServiceDetails from "./pages/ServiceDetails";
 import Portfolio from "./pages/Portfolio";
 import About from "./pages/About";
 import Reviews from "./pages/Reviews";
@@ -58,6 +59,7 @@ const AppRoutes = () => {
           <Routes location={location}>
             <Route path="/" element={<Index />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/services/:slug" element={<ServiceDetails />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/about" element={<About />} />
             <Route path="/reviews" element={<Reviews />} />

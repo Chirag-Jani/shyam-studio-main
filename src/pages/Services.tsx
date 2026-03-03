@@ -1,78 +1,13 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowUpRight, Check } from 'lucide-react';
 import AnimatedText from '@/components/AnimatedText';
 
-const packages = [
-  {
-    category: 'Basic Plans',
-    title: 'Essential Memories',
-    price: '₹11,500',
-    description: '*Only baby photo package',
-    includes: ['12 photo [Edited]', '8x12 Karizma Album', 'Only Selected Photo', '2 MB Document'],
-    featured: false,
-  },
-  {
-    category: 'Basic Plans',
-    title: 'Classic Keepsake',
-    price: '₹15,500',
-    description: '*Only baby photo package',
-    includes: ['12 photo [Edited HD]', '16x24 [1 copy]', '8x12 Karizma Album', '4 mobile reels [without edit]', '1 bag', 'All Hd Raw img [Pendrive / Harddisk]'],
-    featured: false,
-  },
-  {
-    category: 'Basic Plans',
-    title: 'Sweet Beginnings',
-    price: '₹20,500',
-    description: '*Only baby photo package',
-    includes: ['24 photos [Edited]', '2 MB document', '4 mobile reels [without edit]', '8x12 Karizma album', '1 photo Family [Only seleted photo]'],
-    featured: false,
-  },
-  {
-    category: 'Standard Plans',
-    title: 'Joyful Collection',
-    price: '₹23,500',
-    description: '*Only baby photo package',
-    includes: ['24 photo (Edited)', '1 to 2 MB document', '8x12 Karizma album', '20x30 (1 copy)', '6 mobile reels (Without edit)', '1 bag', '1 photo Family (Selected photo)'],
-    featured: false,
-  },
-  {
-    category: 'Standard Plans',
-    title: 'Radiant Moments',
-    price: '₹25,500',
-    description: '*Only baby photo package',
-    includes: ['24 photo [Edited]', '1 copy (20x30)', '1 to 2 MB mobile document', '4x6 (12 copy)', '1 Album Bag', '10x15 Karizma Album', '8 mobile reels without Edit', '1 photo Family'],
-    featured: false,
-  },
-  {
-    category: 'Standard Plans',
-    title: 'Signature Star',
-    price: '₹30,500',
-    description: '*Only baby photo package',
-    includes: ['24 photos [Edited HD]', '1 copy (20x30)', '10x15 Karizma Album', '4x6 (12 copy)', '1 Mug/1 Keychain/ 1 bag', '12 Mobile Reels [without edit]', 'All Hd Raw Img [Pendrive / Harddisk]', 'Only selected Angel hd family photo'],
-    featured: true,
-  },
-  {
-    category: 'Premium Plans',
-    title: 'Luxe Heirloom',
-    price: '₹40,500',
-    description: '*Only baby photo package',
-    includes: ['36 photo [10x15 album]', '1 copy (20x30)', '1 to 2 MB Mobile Document', '4x6 (12 copy)', '1 Mug/ 1 Keychain/ 1 Bag/ 1 Calendar', '20 Mobile Reels (without edit)', 'All Hd Raw img (Pendrive / Harddisk)', 'Only Selected Angel HD family photo'],
-    featured: false,
-  },
-  {
-    category: 'Premium Plans',
-    title: 'Platinum Legacy',
-    price: '₹48,500',
-    description: '*Only baby photo package',
-    includes: ['48 photo [10x15 album]', '1 copy (20x30)', 'Original Document', '4x6 (12 copy)', '1 Mug/ 1 Keychain/ 1 Bag / 1 Calendar', '24 Mobile Reels (Without edit)', 'All Hd Raw img [pendrive / harddisk]', 'Only selected Angel Hd Family photo'],
-    featured: false,
-  },
-];
-
-const packageCategories = ['Basic Plans', 'Standard Plans', 'Premium Plans'];
+import { packages, packageCategories } from '@/lib/services';
 
 const Services = () => {
+  const navigate = useNavigate();
+
   return (
     <main className="pt-20">
       {/* Hero */}
@@ -128,7 +63,8 @@ const Services = () => {
                     .map((pkg, i) => (
                       <motion.div
                         key={i}
-                        className={`relative p-8 md:p-10 rounded-3xl flex flex-col group overflow-hidden transition-colors transition-shadow duration-700 ${
+                        onClick={() => navigate(`/services/${pkg.slug}`)}
+                        className={`relative p-8 md:p-10 rounded-3xl flex flex-col group overflow-hidden transition-colors transition-shadow duration-700 cursor-pointer ${
                           pkg.featured
                             ? `shadow-[0_20px_40px_-15px_rgba(0,0,0,0.08)] border ${
                                 sectionIndex === 2 ? 'border-background/30 bg-background/10' : 'border-accent/40 bg-card/90'
@@ -198,18 +134,17 @@ const Services = () => {
                             href={`https://wa.me/919925311820?text=${encodeURIComponent(`Hi, I am interested in the ${pkg.title} (${pkg.price}) under ${pkg.category}.`)}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`relative overflow-hidden inline-flex items-center mt-auto gap-3 px-8 py-4 rounded-xl font-body text-xs font-bold tracking-[0.2em] uppercase transition-all duration-500 w-full justify-center group/btn ${
+                            onClick={(e) => e.stopPropagation()}
+                            className={`relative overflow-hidden inline-flex items-center mt-auto gap-3 px-8 py-4 rounded-xl font-body text-xs font-bold tracking-[0.2em] uppercase transition-all duration-500 w-full justify-center group/btn z-20 ${
                               pkg.featured
                                 ? (sectionIndex === 2 ? 'bg-background text-foreground hover:shadow-[0_10px_20px_-10px_rgba(255,255,255,0.3)]' : 'bg-foreground text-background hover:shadow-[0_10px_20px_-10px_rgba(0,0,0,0.5)]')
                                 : `border ${sectionIndex === 2 ? 'border-background/50 text-background hover:bg-background hover:text-foreground' : 'border-border text-foreground hover:border-foreground hover:bg-foreground hover:text-background'}`
                             }`}
                           >
                             <span className="relative z-10 flex items-center gap-2">
-                              Reserve Session <ArrowUpRight size={16} className="transition-transform duration-500 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />
+                              Book Session <ArrowUpRight size={16} className="transition-transform duration-500 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />
                             </span>
-                            {/* Button Hover Glow Overlay */}
-                            <div className="absolute inset-0 bg-white/20 translate-y-[100%] group-hover/btn:translate-y-0 transition-transform duration-500 ease-in-out" />
-                          </a>
+                           </a>
                         </div>
                       </motion.div>
                     ))}

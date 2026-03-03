@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, MapPin, Phone, Mail, Clock, ChevronDown } from 'lucide-react';
+import { ArrowUpRight, MapPin, Phone, Mail, Clock, ChevronDown, Instagram } from 'lucide-react';
 import AnimatedText from '@/components/AnimatedText';
 
 const faqs = [
@@ -101,6 +101,20 @@ const Contact = () => {
                   <div>
                     <p className="font-body text-sm font-medium text-foreground">Phone</p>
                     <p className="text-body text-muted-foreground text-sm mt-1">+91 99253 11820</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <Instagram size={20} className="text-accent mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="font-body text-sm font-medium text-foreground">Instagram</p>
+                    <a 
+                      href="https://www.instagram.com/shyamstudio.surat/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-body text-muted-foreground text-sm mt-1 hover:text-foreground hover:underline block"
+                    >
+                      shyamstudio.surat
+                    </a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
