@@ -5,9 +5,8 @@ import { ArrowUpRight, Award, Camera, Clock, Heart } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import AnimatedText from '@/components/AnimatedText';
-import aboutImg from '@/assets/about-photographer.jpg';
-import studioImg from '@/assets/hero-studio.jpg';
-import cameraImg from '@/assets/camera-detail.jpg';
+import { ZoomableImage } from '@/components/ZoomableImage';
+import { portfolio } from '@/lib/portfolio-media';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -80,7 +79,14 @@ const About = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1 }}
             >
-              <img src={aboutImg} alt="Photographer at work" className="w-full aspect-square object-cover" />
+              <ZoomableImage
+                src={portfolio.about}
+                alt="Photographer at work"
+                loading="eager"
+                decoding="async"
+                zoomCaption="Shyam Studio"
+                className="w-full aspect-square object-cover"
+              />
             </motion.div>
           </div>
         </div>
@@ -97,7 +103,14 @@ const About = () => {
               viewport={{ once: false, amount: 0.1 }}
               transition={{ duration: 0.8 }}
             >
-              <img src={studioImg} alt="Our studio" className="w-full aspect-video object-cover" />
+              <ZoomableImage
+                src={portfolio.aboutStudio}
+                alt="Our studio"
+                loading="lazy"
+                decoding="async"
+                zoomCaption="Our studio space"
+                className="w-full aspect-video object-cover"
+              />
               <p className="mt-4 text-label text-muted-foreground">Our Studio Space</p>
             </motion.div>
             <motion.div
@@ -107,8 +120,15 @@ const About = () => {
               viewport={{ once: false, amount: 0.1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <img src={cameraImg} alt="Equipment" className="w-full aspect-video object-cover" />
-              <p className="mt-4 text-label text-muted-foreground">Professional Equipment</p>
+              <ZoomableImage
+                src={portfolio.aboutDetail}
+                alt="Behind the lens"
+                loading="lazy"
+                decoding="async"
+                zoomCaption="From our sessions"
+                className="w-full aspect-video object-cover"
+              />
+              <p className="mt-4 text-label text-muted-foreground">From our sessions</p>
             </motion.div>
           </div>
         </div>

@@ -5,12 +5,8 @@ import { ArrowUpRight, Camera, Heart, Star, Users } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import AnimatedText from '@/components/AnimatedText';
-import heroImg from '@/assets/hero-studio.jpg';
-import babyImg from '@/assets/portfolio-baby.jpg';
-import newbornImg from '@/assets/portfolio-newborn.jpg';
-import kidsImg from '@/assets/portfolio-kids.jpg';
-import maternityImg from '@/assets/portfolio-maternity.jpg';
-import aboutImg from '@/assets/about-photographer.jpg';
+import { ZoomableImage } from '@/components/ZoomableImage';
+import { portfolio, homePortfolioPreview } from '@/lib/portfolio-media';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,12 +16,7 @@ const stats = [
   { number: '200+', label: 'Happy Families' },
 ];
 
-const portfolioPreview = [
-  { img: babyImg, title: 'Baby Shoots', category: 'baby-shoots' },
-  { img: maternityImg, title: 'Maternity', category: 'maternity' },
-  { img: newbornImg, title: 'Newborn', category: 'newborn' },
-  { img: kidsImg, title: 'Baby & Kids', category: 'baby-kids' },
-];
+const portfolioPreview = [...homePortfolioPreview];
 
 const testimonials = [
   {
@@ -92,12 +83,16 @@ const Index = () => {
       {/* ── Hero ── */}
       <section ref={heroRef} className="relative h-screen overflow-hidden">
         <motion.div className="absolute inset-0" style={{ y: heroY }}>
-          <div className="absolute inset-0 bg-warm-900/40 z-10" />
-          <img
-            src={heroImg}
+          <ZoomableImage
+            src={portfolio.hero}
             alt="Shyam Studio"
-            className="w-full h-full object-cover object-[center_25%] md:object-center"
+            fetchPriority="high"
+            loading="eager"
+            decoding="async"
+            zoomCaption="Shyam Studio"
+            className="absolute inset-0 w-full h-full object-cover object-[center_25%] md:object-center"
           />
+          <div className="absolute inset-0 bg-warm-900/40 z-10 pointer-events-none" />
         </motion.div>
 
         <motion.div
@@ -192,9 +187,12 @@ const Index = () => {
               viewport={{ once: false, amount: 0.1 }}
               transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
-              <img
-                src={aboutImg}
+              <ZoomableImage
+                src={portfolio.about}
                 alt="Shyam - Photographer"
+                loading="lazy"
+                decoding="async"
+                zoomCaption="Shyam Studio"
                 className="w-full aspect-[4/5] object-cover"
               />
             </motion.div>
@@ -307,27 +305,29 @@ const Index = () => {
             {portfolioPreview.map((item, i) => (
               <motion.div
                 key={i}
-                className="img-reveal relative group cursor-pointer overflow-hidden"
+                className="img-reveal relative group overflow-hidden"
                 initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.1 }}
                 transition={{ duration: 0.8, delay: i * 0.15 }}
               >
-                <Link to="/portfolio">
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img
-                      src={item.img}
-                      alt={item.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-warm-900/40 lg:bg-warm-900/0 group-hover:bg-warm-900/40 transition-colors duration-500 flex items-end p-8">
+                <div className="aspect-[4/3] overflow-hidden relative">
+                  <ZoomableImage
+                    src={item.img}
+                    alt={item.title}
+                    loading="lazy"
+                    decoding="async"
+                    zoomCaption={item.title}
+                    zoomSubcaption="Category"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-warm-900/40 lg:bg-warm-900/0 group-hover:bg-warm-900/40 transition-colors duration-500 flex items-end p-8 pointer-events-none">
                     <div className="lg:translate-y-8 lg:group-hover:translate-y-0 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-500">
                       <p className="text-label text-primary-foreground/70 mb-1">Category</p>
                       <h3 className="font-heading text-3xl text-primary-foreground font-light">{item.title}</h3>
                     </div>
                   </div>
-                </Link>
+                </div>
               </motion.div>
             ))}
           </div>

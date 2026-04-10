@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Check, Send } from 'lucide-react';
 import AnimatedText from '@/components/AnimatedText';
+import { ZoomableImage } from '@/components/ZoomableImage';
 import { packages } from '@/lib/services';
 import { Button } from '@/components/ui/button';
 
@@ -118,11 +119,14 @@ const ServiceDetails = () => {
                 transition={{ duration: 0.6, delay: 0.3 + (idx * 0.15) }}
                 whileHover={{ scale: 1.02 }}
               >
-                <img 
+                <ZoomableImage 
                   src={img} 
                   alt={`${pkg.title} sample ${idx + 1}`} 
+                  zoomCaption={pkg.title}
+                  zoomSubcaption={`Sample ${idx + 1}`}
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                   loading={idx === 0 ? "eager" : "lazy"}
+                  decoding="async"
                 />
               </motion.div>
             ))}

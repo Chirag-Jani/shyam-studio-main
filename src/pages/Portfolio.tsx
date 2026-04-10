@@ -1,11 +1,47 @@
-import { useState } from 'react';
+import { useEffect, useState, type MouseEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedText from '@/components/AnimatedText';
-import babyImg from '@/assets/portfolio-baby.jpg';
-import newbornImg from '@/assets/portfolio-newborn.jpg';
-import kidsImg from '@/assets/portfolio-kids.jpg';
-import maternityImg from '@/assets/portfolio-maternity.jpg';
+import { ImageLightboxOverlay } from '@/components/ImageLightboxOverlay';
+import { useOnceNearViewport } from '@/hooks/use-once-near-viewport';
+import { useScrollLock } from '@/hooks/use-scroll-lock';
+import {
+  portfolioGalleryItems,
+  type PortfolioGalleryItem,
+} from '@/lib/portfolio-media';
 
+function PortfolioReelThumb({
+  src,
+  className,
+  onMouseEnter,
+  onMouseLeave,
+}: {
+  src: string;
+  className: string;
+  onMouseEnter: (e: MouseEvent<HTMLVideoElement>) => void;
+  onMouseLeave: (e: MouseEvent<HTMLVideoElement>) => void;
+}) {
+  const [wrapEl, setWrapEl] = useState<HTMLDivElement | null>(null);
+  const loadMedia = useOnceNearViewport(wrapEl);
+
+  return (
+    <div ref={setWrapEl} className="relative w-full">
+      {loadMedia ? (
+        <video
+          src={src}
+          muted
+          playsInline
+          loop
+          preload="metadata"
+          className={className}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        />
+      ) : (
+        <div className={`${className} bg-muted`} aria-hidden />
+      )}
+    </div>
+  );
+}
 
 const categories = [
   { id: 'all', label: 'All' },
@@ -13,40 +49,35 @@ const categories = [
   { id: 'maternity', label: 'Maternity' },
   { id: 'newborn', label: 'Newborn' },
   { id: 'baby-kids', label: 'Baby & Kids' },
-];
-
-const galleryItems = [
-  { id: 1, img: babyImg, category: 'baby-shoots', title: 'Little Smiles', aspect: 'portrait' },
-  { id: 2, img: maternityImg, category: 'maternity', title: 'Radiant Glow', aspect: 'portrait' },
-  { id: 3, img: newbornImg, category: 'newborn', title: 'Peaceful Dreams', aspect: 'portrait' },
-  { id: 4, img: kidsImg, category: 'baby-kids', title: 'Pure Joy', aspect: 'portrait' },
-  { id: 5, img: newbornImg, category: 'newborn', title: 'Tiny Toes', aspect: 'landscape' },
-  { id: 6, img: babyImg, category: 'baby-shoots', title: 'First Steps', aspect: 'portrait' },
-  { id: 7, img: maternityImg, category: 'maternity', title: 'Motherly Love', aspect: 'landscape' },
-  { id: 8, img: kidsImg, category: 'baby-kids', title: 'Childhood Wonder', aspect: 'portrait' },
-  { id: 9, img: babyImg, category: 'baby-shoots', title: 'Curious Eyes', aspect: 'landscape' },
-  { id: 10, img: newbornImg, category: 'newborn', title: 'Wrapped in Love', aspect: 'portrait' },
-  { id: 11, img: kidsImg, category: 'baby-kids', title: 'Playful Days', aspect: 'landscape' },
-  { id: 12, img: maternityImg, category: 'maternity', title: 'Beautiful Beginning', aspect: 'portrait' },
-];
+  { id: 'festival', label: 'Festival' },
+  { id: 'reels', label: 'Reels' },
+] as const;
 
 const Portfolio = () => {
-  const [active, setActive] = useState('all');
-  const [selectedImage, setSelectedImage] = useState<typeof galleryItems[0] | null>(null);
-  const filtered = active === 'all' ? galleryItems : galleryItems.filter(i => i.category === active);
+  const [active, setActive] = useState<string>('all');
+  const [selected, setSelected] = useState<PortfolioGalleryItem | null>(null);
+
+  useScrollLock(!!selected && selected.kind === 'reel');
+
+  useEffect(() => {
+    if (selected?.kind !== 'reel') return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelected(null);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [selected]);
+
+  const filtered =
+    active === 'all'
+      ? portfolioGalleryItems
+      : portfolioGalleryItems.filter((i) => i.category === active);
 
   return (
     <main className="pt-20">
       {/* Hero */}
       <section className="py-24 md:py-32 bg-secondary">
         <div className="container mx-auto px-6 md:px-12 text-center">
-          {/* <motion.p
-            className="text-label text-muted-foreground mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            Our Work
-          </motion.p> */}
           <AnimatedText
             text="Portfolio Gallery"
             as="h1"
@@ -58,7 +89,7 @@ const Portfolio = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            A curated collection of our finest work across all categories. 
+            A curated collection of our finest work across all categories.
             Each image represents a story, a moment, a memory.
           </motion.p>
         </div>
@@ -100,23 +131,37 @@ const Portfolio = () => {
               {filtered.map((item, i) => (
                 <motion.div
                   key={item.id}
-                  className="gallery-item break-inside-avoid group cursor-pointer"
-                  onClick={() => setSelectedImage(item)}
+                  className="gallery-item break-inside-avoid group cursor-zoom-in"
+                  onClick={() => setSelected(item)}
                   layout
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.5, delay: i * 0.05 }}
+                  transition={{ duration: 0.45, delay: Math.min(i * 0.02, 0.35) }}
                   whileHover={{ y: -8 }}
                 >
                   <div className="relative overflow-hidden">
-                    <img
-                      src={item.img}
-                      alt={item.title}
-                      className={`w-full object-cover transition-transform duration-700 group-hover:scale-110 ${
-                        item.aspect === 'landscape' ? 'aspect-[4/3]' : 'aspect-[3/4]'
-                      }`}
-                    />
+                    {item.kind === 'photo' ? (
+                      <img
+                        src={item.src}
+                        alt={item.title}
+                        loading="lazy"
+                        decoding="async"
+                        className={`w-full object-cover transition-transform duration-700 group-hover:scale-110 ${
+                          item.aspect === 'landscape' ? 'aspect-[4/3]' : 'aspect-[3/4]'
+                        }`}
+                      />
+                    ) : (
+                      <PortfolioReelThumb
+                        src={item.src}
+                        className="w-full aspect-[9/16] max-h-[85vh] object-cover transition-transform duration-700 group-hover:scale-110"
+                        onMouseEnter={(e) => void e.currentTarget.play()}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.pause();
+                          e.currentTarget.currentTime = 0;
+                        }}
+                      />
+                    )}
                     <div className="absolute inset-0 bg-warm-900/40 lg:bg-warm-900/0 group-hover:bg-warm-900/50 transition-all duration-500 flex items-center justify-center">
                       <motion.div
                         className="text-center lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500"
@@ -124,7 +169,7 @@ const Portfolio = () => {
                       >
                         <p className="font-heading text-2xl text-primary-foreground font-light">{item.title}</p>
                         <p className="text-label text-primary-foreground/60 mt-2">
-                          {categories.find(c => c.id === item.category)?.label}
+                          {categories.find((c) => c.id === item.category)?.label}
                         </p>
                       </motion.div>
                     </div>
@@ -136,15 +181,28 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Lightbox */}
+      <ImageLightboxOverlay
+        open={selected?.kind === 'photo'}
+        src={selected?.kind === 'photo' ? selected.src : ''}
+        alt={selected?.kind === 'photo' ? selected.title : ''}
+        onClose={() => setSelected(null)}
+        caption={selected?.kind === 'photo' ? selected.title : undefined}
+        subcaption={
+          selected?.kind === 'photo'
+            ? categories.find((c) => c.id === selected.category)?.label
+            : undefined
+        }
+      />
+
+      {/* Video lightbox */}
       <AnimatePresence>
-        {selectedImage && (
+        {selected?.kind === 'reel' && (
           <motion.div
-            className="fixed inset-0 z-50 bg-warm-900/95 flex items-center justify-center p-6 cursor-pointer"
+            className="fixed inset-0 z-[100] bg-warm-900/95 flex items-center justify-center p-6 cursor-pointer"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedImage(null)}
+            onClick={() => setSelected(null)}
           >
             <motion.div
               className="relative max-w-4xl max-h-[85vh]"
@@ -152,16 +210,20 @@ const Portfolio = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+              onClick={(e) => e.stopPropagation()}
             >
-              <img
-                src={selectedImage.img}
-                alt={selectedImage.title}
-                className="max-h-[85vh] w-auto object-contain"
+              <video
+                src={selected.src}
+                controls
+                playsInline
+                preload="metadata"
+                className="max-h-[85vh] w-auto max-w-full"
+                autoPlay
               />
               <div className="absolute bottom-0 left-0 right-0 p-6 bg-warm-900/80">
-                <p className="font-heading text-2xl text-primary-foreground">{selectedImage.title}</p>
+                <p className="font-heading text-2xl text-primary-foreground">{selected.title}</p>
                 <p className="text-label text-primary-foreground/60 mt-1">
-                  {categories.find(c => c.id === selectedImage.category)?.label}
+                  {categories.find((c) => c.id === selected.category)?.label}
                 </p>
               </div>
             </motion.div>
