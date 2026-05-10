@@ -19,7 +19,7 @@ const reviews = [
   {
     text: "From start to finish, the team made us feel at ease. Our kids had a blast during the session and the photos are priceless. True professionals who know how to work with children.",
     author: 'Anita Desai',
-    role: 'Baby & Kids Session',
+    role: 'Family Session',
     rating: 5,
   },
   {

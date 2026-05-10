@@ -6,7 +6,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import AnimatedText from '@/components/AnimatedText';
 import { ZoomableImage } from '@/components/ZoomableImage';
-import { portfolio } from '@/lib/portfolio-media';
+import { portfolio, studioSetupPhotos } from '@/lib/portfolio-media';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -92,44 +92,40 @@ const About = () => {
         </div>
       </section>
 
-      {/* Studio Images */}
+      {/* Studio setup */}
       <section className="py-24 md:py-32">
         <div className="container mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <motion.div
-              className="img-reveal"
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.1 }}
-              transition={{ duration: 0.8 }}
-            >
-              <ZoomableImage
-                src={portfolio.aboutStudio}
-                alt="Our studio"
-                loading="lazy"
-                decoding="async"
-                zoomCaption="Our studio space"
-                className="w-full aspect-video object-cover"
-              />
-              <p className="mt-4 text-label text-muted-foreground">Our Studio Space</p>
-            </motion.div>
-            <motion.div
-              className="img-reveal"
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <ZoomableImage
-                src={portfolio.aboutDetail}
-                alt="Behind the lens"
-                loading="lazy"
-                decoding="async"
-                zoomCaption="From our sessions"
-                className="w-full aspect-video object-cover"
-              />
-              <p className="mt-4 text-label text-muted-foreground">From our sessions</p>
-            </motion.div>
+          <div className="mb-12 md:mb-16 max-w-2xl">
+            <AnimatedText
+              text="Inside the Studio"
+              as="h2"
+              className="heading-section text-foreground mb-4"
+            />
+            <p className="text-body text-muted-foreground">
+              Our space is set up for comfortable, well-lit sessions—from props and backdrops to the gear we use every day.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            {studioSetupPhotos.map((src, i) => (
+              <motion.div
+                key={src}
+                className="img-reveal"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.08 }}
+                transition={{ duration: 0.6, delay: Math.min(i * 0.05, 0.35) }}
+              >
+                <ZoomableImage
+                  src={src}
+                  alt={`Studio setup ${i + 1}`}
+                  loading="lazy"
+                  decoding="async"
+                  zoomCaption="Inside the studio"
+                  zoomSubcaption={`Setup ${i + 1}`}
+                  className="w-full aspect-[4/3] object-cover"
+                />
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>

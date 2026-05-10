@@ -205,10 +205,10 @@ const Contact = () => {
                         className="w-full px-4 py-3 bg-transparent border border-border text-foreground font-body text-sm focus:outline-none focus:border-foreground transition-colors duration-300 appearance-none"
                       >
                         <option value="">Select a service</option>
-                        <option value="baby">Baby Shoots</option>
+                        <option value="Toddlers">Toddlers</option>
                         <option value="maternity">Maternity</option>
                         <option value="newborn">Newborn</option>
-                        <option value="kids">Baby & Kids</option>
+                        <option value="Family Shoots">Family Shoots</option>
                         <option value="package">Package Deal</option>
                         <option value="other">Other</option>
                       </select>

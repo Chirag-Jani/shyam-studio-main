@@ -45,12 +45,12 @@ function PortfolioReelThumb({
 
 const categories = [
   { id: 'all', label: 'All' },
-  { id: 'baby-shoots', label: 'Baby Shoots' },
-  { id: 'maternity', label: 'Maternity' },
+  { id: 'toddlers', label: 'Toddlers' },
   { id: 'newborn', label: 'Newborn' },
-  { id: 'baby-kids', label: 'Baby & Kids' },
+  { id: 'family-shoots', label: 'Family Shoots' },
   { id: 'festival', label: 'Festival' },
-  { id: 'reels', label: 'Reels' },
+  { id: 'reels-outdoor', label: 'Outdoor reels' },
+  { id: 'reels-indoor', label: 'Indoor reels' },
 ] as const;
 
 const Portfolio = () => {

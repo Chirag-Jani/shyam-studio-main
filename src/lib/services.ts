@@ -8,7 +8,7 @@ export const packages = [
         description: '*Only baby photo package',
         includes: ['12 photo [Edited]', '8x12 Karizma Album', 'Only Selected Photo', '2 MB Document'],
         featured: false,
-        images: ['/images/newborn/nb2.JPG', '/images/kids/kid3.jpg', '/images/mother/m4.jpg']
+        images: ['/images/newborn/nb2.JPG', '/images/kids/kid3.jpg', '/images/kids/kid4.JPG']
     },
     {
         id: 'classic-keepsake',
@@ -30,7 +30,7 @@ export const packages = [
         description: '*Only baby photo package',
         includes: ['24 photos [Edited]', '2 MB document', '4 mobile reels [without edit]', '8x12 Karizma album', '1 photo Family [Only seleted photo]'],
         featured: false,
-        images: ['/images/mother/m2.jpg', '/images/kids/kid4.JPG', '/images/festival/fe3.jpg']
+        images: ['/images/newborn/nb1.jpg', '/images/kids/kid4.JPG', '/images/festival/fe3.jpg']
     },
     {
         id: 'joyful-collection',
@@ -41,7 +41,7 @@ export const packages = [
         description: '*Only baby photo package',
         includes: ['24 photo (Edited)', '1 to 2 MB document', '8x12 Karizma album', '20x30 (1 copy)', '6 mobile reels (Without edit)', '1 bag', '1 photo Family (Selected photo)'],
         featured: false,
-        images: ['/images/kids/kid5.jpg', '/images/mother/m5.jpg', '/images/family/f5.jpg']
+        images: ['/images/kids/kid5.jpg', '/images/newborn/nb3.JPG', '/images/family/f5.jpg']
     },
     {
         id: 'radiant-moments',
@@ -63,7 +63,7 @@ export const packages = [
         description: '*Only baby photo package',
         includes: ['24 photos [Edited HD]', '1 copy (20x30)', '10x15 Karizma Album', '4x6 (12 copy)', '1 Mug/1 Keychain/ 1 bag', '12 Mobile Reels [without edit]', 'All Hd Raw Img [Pendrive / Harddisk]', 'Only selected Angel hd family photo'],
         featured: true,
-        images: ['/images/kids/kid2.jpg', '/images/mother/m6.jpg', '/images/newborn/nb5.JPG']
+        images: ['/images/kids/kid2.jpg', '/images/kids/kid1.jpg', '/images/newborn/nb5.JPG']
     },
     {
         id: 'luxe-heirloom',
@@ -74,7 +74,7 @@ export const packages = [
         description: '*Only baby photo package',
         includes: ['36 photo [10x15 album]', '1 copy (20x30)', '1 to 2 MB Mobile Document', '4x6 (12 copy)', '1 Mug/ 1 Keychain/ 1 Bag/ 1 Calendar', '20 Mobile Reels (without edit)', 'All Hd Raw img (Pendrive / Harddisk)', 'Only Selected Angel HD family photo'],
         featured: false,
-        images: ['/images/newborn/nb1.jpg', '/images/festival/fe6.JPG', '/images/mother/m7.jpg']
+        images: ['/images/newborn/nb1.jpg', '/images/festival/fe6.JPG', '/images/family/f3.jpg']
     },
     {
         id: 'platinum-legacy',
@@ -85,7 +85,7 @@ export const packages = [
         description: '*Only baby photo package',
         includes: ['48 photo [10x15 album]', '1 copy (20x30)', 'Original Document', '4x6 (12 copy)', '1 Mug/ 1 Keychain/ 1 Bag / 1 Calendar', '24 Mobile Reels (Without edit)', 'All Hd Raw img [pendrive / harddisk]', 'Only selected Angel Hd Family photo'],
         featured: false,
-        images: ['/images/mother/m1.jpg', '/images/kids/kid3.jpg', '/images/festival/fe10.JPG']
+        images: ['/images/newborn/nb4.jpg', '/images/kids/kid3.jpg', '/images/festival/fe10.JPG']
     },
 ];
 

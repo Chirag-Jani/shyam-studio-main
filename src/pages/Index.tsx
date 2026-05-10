@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Camera, Heart, Star, Users } from 'lucide-react';
+import { ArrowUpRight, Camera, Heart, Star } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import AnimatedText from '@/components/AnimatedText';
@@ -11,12 +11,10 @@ import { portfolio, homePortfolioPreview } from '@/lib/portfolio-media';
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-  { number: '500+', label: 'Sessions Completed' },
-  { number: '8+', label: 'Years Experience' },
-  { number: '200+', label: 'Happy Families' },
+  { number: '10000+', label: 'Sessions' },
+  { number: '8+', label: 'Years of exp.' },
+  { number: '5000+', label: 'Happy families' },
 ];
-
-const portfolioPreview = [...homePortfolioPreview];
 
 const testimonials = [
   {
@@ -235,7 +233,7 @@ const Index = () => {
           <div key={block} className="marquee-text flex animate-marquee whitespace-nowrap gap-6 md:gap-12 min-w-full shrink-0 justify-around pl-6 md:pl-12">
             {[...Array(4)].map((_, i) => (
               <span key={`${block}-${i}`} className="font-heading text-4xl md:text-8xl font-light text-muted-foreground/20 flex items-center gap-6 md:gap-12 pr-6 md:pr-12">
-                Baby Shoots <span className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-muted-foreground/20 inline-block" /> Maternity <span className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-muted-foreground/20 inline-block" /> Newborn <span className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-muted-foreground/20 inline-block" /> Kids Photography <span className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-muted-foreground/20 inline-block" />
+                Toddlers <span className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-muted-foreground/20 inline-block" /> Family Shoots <span className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-muted-foreground/20 inline-block" /> Newborn <span className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-muted-foreground/20 inline-block" /> Festival <span className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-muted-foreground/20 inline-block" />
               </span>
             ))}
           </div>
@@ -254,12 +252,11 @@ const Index = () => {
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { icon: Camera, title: 'Baby Shoots', desc: 'Milestone moments from 3 months to first birthday' },
-              { icon: Heart, title: 'Maternity', desc: 'Celebrating the beautiful journey of motherhood' },
+              { icon: Camera, title: 'Toddlers', desc: 'Playful milestones and personality from the toddler years' },
+              { icon: Heart, title: 'Family Shoots', desc: 'Togetherness, siblings, and candid stories for every family' },
               { icon: Star, title: 'Newborn', desc: 'First days captured with gentle, artistic precision' },
-              { icon: Users, title: 'Baby & Kids', desc: 'Playful sessions that capture genuine personality' },
             ].map((service, i) => (
               <div
                 key={i}
@@ -302,9 +299,9 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {portfolioPreview.map((item, i) => (
+            {homePortfolioPreview.map((item, i) => (
               <motion.div
-                key={i}
+                key={`${item.kind}-${item.title}-${i}`}
                 className="img-reveal relative group overflow-hidden"
                 initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -312,15 +309,31 @@ const Index = () => {
                 transition={{ duration: 0.8, delay: i * 0.15 }}
               >
                 <div className="aspect-[4/3] overflow-hidden relative">
-                  <ZoomableImage
-                    src={item.img}
-                    alt={item.title}
-                    loading="lazy"
-                    decoding="async"
-                    zoomCaption={item.title}
-                    zoomSubcaption="Category"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  {item.kind === 'photo' ? (
+                    <ZoomableImage
+                      src={item.img}
+                      alt={item.title}
+                      loading="lazy"
+                      decoding="async"
+                      zoomCaption={item.title}
+                      zoomSubcaption="Category"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  ) : (
+                    <video
+                      src={item.reel}
+                      muted
+                      playsInline
+                      loop
+                      preload="metadata"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      onMouseEnter={(e) => void e.currentTarget.play()}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.pause();
+                        e.currentTarget.currentTime = 0;
+                      }}
+                    />
+                  )}
                   <div className="absolute inset-0 bg-warm-900/40 lg:bg-warm-900/0 group-hover:bg-warm-900/40 transition-colors duration-500 flex items-end p-8 pointer-events-none">
                     <div className="lg:translate-y-8 lg:group-hover:translate-y-0 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-500">
                       <p className="text-label text-primary-foreground/70 mb-1">Category</p>
