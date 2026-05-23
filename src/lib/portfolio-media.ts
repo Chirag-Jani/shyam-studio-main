@@ -12,18 +12,41 @@ const STUDIO_SETUP_FILES = ['s1.jpeg', 's4.jpeg', 's5.jpeg', 's6.jpeg', 's7.jpeg
 
 export const studioSetupPhotos = STUDIO_SETUP_FILES.map((f) => `/images/setup/${f}`);
 
+export type PortfolioFilterCategory =
+  | 'toddlers'
+  | 'newborn'
+  | 'family-shoots'
+  | 'festival'
+  | 'reels-outdoor'
+  | 'reels-indoor';
+
+export type PortfolioCategoryId = 'all' | PortfolioFilterCategory;
+
+export const portfolioFilterCategoryIds: PortfolioFilterCategory[] = [
+  'toddlers',
+  'newborn',
+  'family-shoots',
+  'festival',
+  'reels-outdoor',
+  'reels-indoor',
+];
+
+export function isPortfolioFilterCategory(value: string | null): value is PortfolioFilterCategory {
+  return portfolioFilterCategoryIds.includes(value as PortfolioFilterCategory);
+}
+
 export type HomePortfolioPhotoItem = {
   kind: 'photo';
   img: string;
   title: string;
-  category: string;
+  category: PortfolioFilterCategory;
 };
 
 export type HomePortfolioReelItem = {
   kind: 'reel';
   reel: string;
   title: string;
-  category: string;
+  category: PortfolioFilterCategory;
 };
 
 export type HomePortfolioItem = HomePortfolioPhotoItem | HomePortfolioReelItem;
@@ -35,15 +58,6 @@ export const homePortfolioPreview: HomePortfolioItem[] = [
   { kind: 'reel', reel: '/images/reels/reel1.mp4', title: 'Outdoor Reels', category: 'reels-outdoor' },
   { kind: 'reel', reel: '/images/reels/reel2.mp4', title: 'Indoor Reels', category: 'reels-indoor' },
 ];
-
-export type PortfolioCategoryId =
-  | 'all'
-  | 'toddlers'
-  | 'newborn'
-  | 'family-shoots'
-  | 'festival'
-  | 'reels-outdoor'
-  | 'reels-indoor';
 
 export type PhotoGalleryItem = {
   kind: 'photo';

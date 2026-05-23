@@ -1,17 +1,12 @@
 import { useCallback, useState, type ImgHTMLAttributes, type KeyboardEvent, type MouseEvent } from 'react';
 import { ImageLightboxOverlay } from '@/components/ImageLightboxOverlay';
 
-type ZoomableImageProps = Omit<ImgHTMLAttributes<HTMLImageElement>, 'onClick'> & {
-  zoomCaption?: string;
-  zoomSubcaption?: string;
-};
+type ZoomableImageProps = Omit<ImgHTMLAttributes<HTMLImageElement>, 'onClick'>;
 
 export function ZoomableImage({
   src,
   alt,
   className = '',
-  zoomCaption,
-  zoomSubcaption,
   ...rest
 }: ZoomableImageProps) {
   const [open, setOpen] = useState(false);
@@ -49,8 +44,6 @@ export function ZoomableImage({
         src={src}
         alt={alt ?? ''}
         onClose={() => setOpen(false)}
-        caption={zoomCaption}
-        subcaption={zoomSubcaption}
       />
     </>
   );

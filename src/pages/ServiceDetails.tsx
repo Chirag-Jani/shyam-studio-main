@@ -122,8 +122,6 @@ const ServiceDetails = () => {
                 <ZoomableImage 
                   src={img} 
                   alt={`${pkg.title} sample ${idx + 1}`} 
-                  zoomCaption={pkg.title}
-                  zoomSubcaption={`Sample ${idx + 1}`}
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                   loading={idx === 0 ? "eager" : "lazy"}
                   decoding="async"

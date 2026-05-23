@@ -84,7 +84,6 @@ const About = () => {
                 alt="Photographer at work"
                 loading="eager"
                 decoding="async"
-                zoomCaption="Shyam Studio"
                 className="w-full aspect-square object-cover"
               />
             </motion.div>
@@ -120,8 +119,6 @@ const About = () => {
                   alt={`Studio setup ${i + 1}`}
                   loading="lazy"
                   decoding="async"
-                  zoomCaption="Inside the studio"
-                  zoomSubcaption={`Setup ${i + 1}`}
                   className="w-full aspect-[4/3] object-cover"
                 />
               </motion.div>

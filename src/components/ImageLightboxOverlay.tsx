@@ -7,8 +7,6 @@ type ImageLightboxOverlayProps = {
   src: string;
   alt: string;
   onClose: () => void;
-  caption?: string;
-  subcaption?: string;
 };
 
 export function ImageLightboxOverlay({
@@ -16,8 +14,6 @@ export function ImageLightboxOverlay({
   src,
   alt,
   onClose,
-  caption,
-  subcaption,
 }: ImageLightboxOverlayProps) {
   useScrollLock(open);
 
@@ -54,16 +50,6 @@ export function ImageLightboxOverlay({
               decoding="async"
               className="max-h-[85vh] w-auto max-w-full mx-auto object-contain block"
             />
-            {(caption || subcaption) && (
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-warm-900/80">
-                {caption ? (
-                  <p className="font-heading text-2xl text-primary-foreground">{caption}</p>
-                ) : null}
-                {subcaption ? (
-                  <p className="text-label text-primary-foreground/60 mt-1">{subcaption}</p>
-                ) : null}
-              </div>
-            )}
           </motion.div>
         </motion.div>
       )}

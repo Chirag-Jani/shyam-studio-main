@@ -6,7 +6,11 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import AnimatedText from '@/components/AnimatedText';
 import { ZoomableImage } from '@/components/ZoomableImage';
-import { portfolio, homePortfolioPreview } from '@/lib/portfolio-media';
+import { portfolio, homePortfolioPreview, type PortfolioFilterCategory } from '@/lib/portfolio-media';
+
+function portfolioCategoryHref(category: PortfolioFilterCategory) {
+  return `/portfolio?category=${category}`;
+}
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -87,7 +91,6 @@ const Index = () => {
             fetchPriority="high"
             loading="eager"
             decoding="async"
-            zoomCaption="Shyam Studio"
             className="absolute inset-0 w-full h-full object-cover object-[center_25%] md:object-center"
           />
           <div className="absolute inset-0 bg-warm-900/40 z-10 pointer-events-none" />
@@ -190,7 +193,6 @@ const Index = () => {
                 alt="Shyam - Photographer"
                 loading="lazy"
                 decoding="async"
-                zoomCaption="Shyam Studio"
                 className="w-full aspect-[4/5] object-cover"
               />
             </motion.div>
@@ -302,45 +304,48 @@ const Index = () => {
             {homePortfolioPreview.map((item, i) => (
               <motion.div
                 key={`${item.kind}-${item.title}-${i}`}
-                className="img-reveal relative group overflow-hidden"
                 initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.1 }}
                 transition={{ duration: 0.8, delay: i * 0.15 }}
               >
-                <div className="aspect-[4/3] overflow-hidden relative">
-                  {item.kind === 'photo' ? (
-                    <ZoomableImage
-                      src={item.img}
-                      alt={item.title}
-                      loading="lazy"
-                      decoding="async"
-                      zoomCaption={item.title}
-                      zoomSubcaption="Category"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  ) : (
-                    <video
-                      src={item.reel}
-                      muted
-                      playsInline
-                      loop
-                      preload="metadata"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      onMouseEnter={(e) => void e.currentTarget.play()}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.pause();
-                        e.currentTarget.currentTime = 0;
-                      }}
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-warm-900/40 lg:bg-warm-900/0 group-hover:bg-warm-900/40 transition-colors duration-500 flex items-end p-8 pointer-events-none">
-                    <div className="lg:translate-y-8 lg:group-hover:translate-y-0 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-500">
-                      <p className="text-label text-primary-foreground/70 mb-1">Category</p>
-                      <h3 className="font-heading text-3xl text-primary-foreground font-light">{item.title}</h3>
+                <Link
+                  to={portfolioCategoryHref(item.category)}
+                  aria-label={`Explore ${item.title} in portfolio`}
+                  className="img-reveal relative group block overflow-hidden cursor-pointer"
+                >
+                  <div className="aspect-[4/3] overflow-hidden relative">
+                    {item.kind === 'photo' ? (
+                      <img
+                        src={item.img}
+                        alt={item.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <video
+                        src={item.reel}
+                        muted
+                        playsInline
+                        loop
+                        preload="metadata"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none"
+                        onMouseEnter={(e) => void e.currentTarget.play()}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.pause();
+                          e.currentTarget.currentTime = 0;
+                        }}
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-warm-900/40 lg:bg-warm-900/0 group-hover:bg-warm-900/40 transition-colors duration-500 flex items-end p-8 pointer-events-none">
+                      <div className="lg:translate-y-8 lg:group-hover:translate-y-0 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-500">
+                        <p className="text-label text-primary-foreground/70 mb-1">Explore</p>
+                        <h3 className="font-heading text-3xl text-primary-foreground font-light">{item.title}</h3>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </motion.div>
             ))}
           </div>

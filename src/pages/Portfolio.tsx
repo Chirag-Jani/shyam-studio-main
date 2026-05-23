@@ -1,10 +1,12 @@
 import { useEffect, useState, type MouseEvent } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedText from '@/components/AnimatedText';
 import { ImageLightboxOverlay } from '@/components/ImageLightboxOverlay';
 import { useOnceNearViewport } from '@/hooks/use-once-near-viewport';
 import { useScrollLock } from '@/hooks/use-scroll-lock';
 import {
+  isPortfolioFilterCategory,
   portfolioGalleryItems,
   type PortfolioGalleryItem,
 } from '@/lib/portfolio-media';
@@ -53,11 +55,30 @@ const categories = [
   { id: 'reels-indoor', label: 'Indoor reels' },
 ] as const;
 
+function categoryFromSearchParams(params: URLSearchParams): string {
+  const category = params.get('category');
+  return isPortfolioFilterCategory(category) ? category : 'all';
+}
+
 const Portfolio = () => {
-  const [active, setActive] = useState<string>('all');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [active, setActive] = useState(() => categoryFromSearchParams(searchParams));
   const [selected, setSelected] = useState<PortfolioGalleryItem | null>(null);
 
   useScrollLock(!!selected && selected.kind === 'reel');
+
+  useEffect(() => {
+    setActive(categoryFromSearchParams(searchParams));
+  }, [searchParams]);
+
+  const selectCategory = (id: string) => {
+    setActive(id);
+    if (id === 'all') {
+      setSearchParams({});
+    } else {
+      setSearchParams({ category: id });
+    }
+  };
 
   useEffect(() => {
     if (selected?.kind !== 'reel') return;
@@ -102,7 +123,7 @@ const Portfolio = () => {
             {categories.map((cat) => (
               <button
                 key={cat.id}
-                onClick={() => setActive(cat.id)}
+                onClick={() => selectCategory(cat.id)}
                 className={`text-label whitespace-nowrap pb-2 border-b-2 transition-all duration-300 ${
                   active === cat.id
                     ? 'text-foreground border-foreground'
@@ -162,17 +183,6 @@ const Portfolio = () => {
                         }}
                       />
                     )}
-                    <div className="absolute inset-0 bg-warm-900/40 lg:bg-warm-900/0 group-hover:bg-warm-900/50 transition-all duration-500 flex items-center justify-center">
-                      <motion.div
-                        className="text-center lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500"
-                        initial={false}
-                      >
-                        <p className="font-heading text-2xl text-primary-foreground font-light">{item.title}</p>
-                        <p className="text-label text-primary-foreground/60 mt-2">
-                          {categories.find((c) => c.id === item.category)?.label}
-                        </p>
-                      </motion.div>
-                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -184,14 +194,12 @@ const Portfolio = () => {
       <ImageLightboxOverlay
         open={selected?.kind === 'photo'}
         src={selected?.kind === 'photo' ? selected.src : ''}
-        alt={selected?.kind === 'photo' ? selected.title : ''}
-        onClose={() => setSelected(null)}
-        caption={selected?.kind === 'photo' ? selected.title : undefined}
-        subcaption={
+        alt={
           selected?.kind === 'photo'
-            ? categories.find((c) => c.id === selected.category)?.label
-            : undefined
+            ? categories.find((c) => c.id === selected.category)?.label ?? 'Photo'
+            : ''
         }
+        onClose={() => setSelected(null)}
       />
 
       {/* Video lightbox */}
@@ -220,12 +228,6 @@ const Portfolio = () => {
                 className="max-h-[85vh] w-auto max-w-full"
                 autoPlay
               />
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-warm-900/80">
-                <p className="font-heading text-2xl text-primary-foreground">{selected.title}</p>
-                <p className="text-label text-primary-foreground/60 mt-1">
-                  {categories.find((c) => c.id === selected.category)?.label}
-                </p>
-              </div>
             </motion.div>
           </motion.div>
         )}
