@@ -48,6 +48,8 @@ export function ImageLightboxOverlay({
               src={src}
               alt={alt}
               decoding="async"
+              loading="eager"
+              fetchPriority="high"
               className="max-h-[85vh] w-auto max-w-full mx-auto object-contain block"
             />
           </motion.div>

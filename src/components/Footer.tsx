@@ -1,34 +1,58 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowUpRight, MapPin, Phone, Mail, Instagram } from 'lucide-react';
+import { MapPin, Phone, Mail, Instagram, ArrowUpRight } from 'lucide-react';
+import { site } from '@/lib/site-content';
 
 const Footer = () => {
   return (
-    <footer className="bg-warm-900 text-primary-foreground py-20">
-      <div className="container mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
-          <div>
-            <h3 className="font-heading text-3xl font-light tracking-wider mb-6">SHYAM STUDIO</h3>
-            <p className="font-body text-sm font-light leading-relaxed text-primary-foreground/60 max-w-xs">
-              Capturing life's most precious moments with artistry, warmth, and timeless elegance.
+    <footer className="bg-secondary border-t border-border">
+      <div className="container mx-auto px-6 md:px-12 max-w-6xl py-16 md:py-20">
+        <div className="text-center mb-16">
+          <h3 className="font-heading text-3xl md:text-4xl font-light text-foreground mb-4">
+            Follow us on instagram
+          </h3>
+          <a
+            href={site.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-label text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <Instagram size={16} /> @{site.instagramHandle} <ArrowUpRight size={14} />
+          </a>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+          <div className="md:col-span-5">
+            <h3 className="font-heading text-xl font-medium tracking-[0.2em] mb-4 text-foreground">
+              {site.name.toUpperCase()}
+            </h3>
+            <p className="font-body text-sm font-light text-muted-foreground max-w-sm leading-relaxed">
+              {site.tagline}
             </p>
+            <a
+              href={site.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mt-8 text-label text-foreground hover:text-muted-foreground transition-colors"
+            >
+              Book a session <ArrowUpRight size={14} />
+            </a>
           </div>
 
-          <div>
-            <p className="text-label text-primary-foreground/40 mb-6">Navigation</p>
+          <div className="md:col-span-3">
+            <p className="text-label text-muted-foreground/70 mb-5">Navigation</p>
             <nav className="flex flex-col gap-3">
               {[
                 { label: 'Home', path: '/' },
                 { label: 'Services', path: '/services' },
                 { label: 'Portfolio', path: '/portfolio' },
                 { label: 'About', path: '/about' },
-                // { label: 'Reviews', path: '/reviews' },
+                { label: 'Reviews', path: '/reviews' },
                 { label: 'Contact', path: '/contact' },
               ].map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className="font-body text-sm font-light text-primary-foreground/60 hover:text-primary-foreground transition-colors duration-300"
+                  className="font-body text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -36,62 +60,44 @@ const Footer = () => {
             </nav>
           </div>
 
-          <div>
-            <p className="text-label text-primary-foreground/40 mb-6">Get in Touch</p>
-            <div className="flex flex-col gap-4 font-body text-sm font-light text-primary-foreground/60">
-              <div className="flex items-start gap-3">
-                <MapPin size={16} className="mt-1 flex-shrink-0" />
-                <a 
-                  href="https://maps.google.com/maps?q=201%20Opera%20Business%20Hub%20Nr.By%20Savji%20Korat%20Bridge,%20Ljamni%20Chowk%20Mota%20Varachha,%20Surat"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary-foreground transition-colors"
-                >
-                  201 Opera Business Hub Nr.By Savji Korat Bridge,<br />
-                  Ljamni Chowk Mota Varachha, Surat.
-                </a>
-              </div>
+          <div className="md:col-span-4">
+            <p className="text-label text-muted-foreground/70 mb-5">Contact information</p>
+            <div className="space-y-4 font-body text-sm text-muted-foreground">
+              <a href={`tel:${site.phoneTel}`} className="flex items-center gap-3 hover:text-foreground transition-colors">
+                <Phone size={16} className="shrink-0" />
+                {site.phone}
+              </a>
+              <a
+                href={site.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 hover:text-foreground transition-colors"
+              >
+                <MapPin size={16} className="shrink-0 mt-0.5" />
+                {site.address}
+              </a>
               <div className="flex items-center gap-3">
-                <Phone size={16} className="flex-shrink-0" />
-                <p>+91 99253 11820</p>
+                <Mail size={16} className="shrink-0" />
+                {site.email}
               </div>
-              <div className="flex items-center gap-3">
-                <Mail size={16} className="flex-shrink-0" />
-                <p>hello@shyamstudio.com</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <Instagram size={16} className="flex-shrink-0" />
-                <a 
-                  href="https://www.instagram.com/shyamstudio.surat/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary-foreground transition-colors"
-                >
-                  shyamstudio.surat
-                </a>
-              </div>
+              <a
+                href={site.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 hover:text-foreground transition-colors"
+              >
+                <Instagram size={16} className="shrink-0" />
+                @{site.instagramHandle}
+              </a>
             </div>
-            <a
-              href="https://wa.me/919925311820"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-6 text-label text-primary-foreground hover:text-primary-foreground/80 transition-colors"
-            >
-              Book a Session <ArrowUpRight size={14} />
-            </a>
           </div>
         </div>
 
-        <motion.div
-          className="border-t border-primary-foreground/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: false, amount: 0.1 }}
-        >
-          <p className="font-body text-xs font-light text-primary-foreground/40 text-center w-full">
-            &copy; {new Date().getFullYear()} Shyam Studio. All rights reserved.
+        <div className="border-t border-border mt-12 pt-8 text-center">
+          <p className="font-body text-xs text-muted-foreground/70">
+            &copy; {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
-        </motion.div>
+        </div>
       </div>
     </footer>
   );

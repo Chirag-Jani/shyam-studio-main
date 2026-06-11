@@ -1,19 +1,14 @@
-import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { ArrowUpRight, Award, Camera, Clock, Heart } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import AnimatedText from '@/components/AnimatedText';
+import { PageHero } from '@/components/layout/PageHero';
+import { Section, SectionTitle } from '@/components/layout/Section';
 import { ZoomableImage } from '@/components/ZoomableImage';
+import { aboutIntro, site } from '@/lib/site-content';
 import { portfolio, studioSetupPhotos } from '@/lib/portfolio-media';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const timeline = [
   { year: '2016', title: 'The Beginning', desc: 'Started Shyam Studio with a single camera and a dream to capture life beautifully.' },
   { year: '2018', title: 'First Studio', desc: 'Opened our first professional studio space equipped with state-of-the-art lighting.' },
-  { year: '2020', title: 'Growing Family', desc: 'Expanded our team and specialized in newborn and maternity photography.' },
+  { year: '2020', title: 'Growing Family', desc: 'Expanded our team and specialized in newborn and family photography.' },
   { year: '2022', title: 'Award Winning', desc: 'Received recognition as one of the top photography studios in the region.' },
   { year: '2024', title: 'New Chapter', desc: 'Launched premium packages and expanded into cinematic videography services.' },
 ];
@@ -26,178 +21,86 @@ const values = [
 ];
 
 const About = () => {
-  const timelineRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>('.timeline-item').forEach((item, i) => {
-        gsap.from(item, {
-          x: i % 2 === 0 ? -80 : 80,
-          opacity: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: item, start: 'top 85%', toggleActions: 'play reverse play reverse' },
-        });
-      });
-    }, timelineRef);
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <main className="pt-20">
-      {/* Hero */}
-      <section className="py-24 md:py-32 bg-secondary">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div>
-              {/* <motion.p
-                className="text-label text-muted-foreground mb-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                Our Story
-              </motion.p> */}
-              <AnimatedText
-                text="The Heart Behind the Lens"
-                as="h1"
-                className="heading-display text-5xl md:text-6xl text-foreground mb-6"
-              />
-              <motion.p
-                className="text-body text-muted-foreground"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-              >
-                What started as a personal passion has grown into a full-fledged photography 
-                studio dedicated to preserving life's most tender moments. At Shyam Studio, 
-                photography isn't just what we do - it's who we are.
-              </motion.p>
-            </div>
-            <motion.div
-              className="img-reveal"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1 }}
-            >
-              <ZoomableImage
-                src={portfolio.about}
-                alt="Photographer at work"
-                loading="eager"
-                decoding="async"
-                className="w-full aspect-square object-cover"
-              />
-            </motion.div>
-          </div>
-        </div>
-      </section>
+    <main>
+      <PageHero title="The heart behind the lens" subtitle="Our story, values, and studio in Surat." />
 
-      {/* Studio setup */}
-      <section className="py-24 md:py-32">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="mb-12 md:mb-16 max-w-2xl">
-            <AnimatedText
-              text="Inside the Studio"
-              as="h2"
-              className="heading-section text-foreground mb-4"
+      <Section>
+        <div className="grid md:grid-cols-2 gap-12 items-start">
+          <div className="space-y-6">
+            {aboutIntro.map((p, i) => (
+              <p key={i} className="text-body text-muted-foreground">
+                {p}
+              </p>
+            ))}
+          </div>
+          <ZoomableImage src={portfolio.about} alt="Photographer at work" className="w-full aspect-square object-cover" />
+        </div>
+      </Section>
+
+      <Section variant="muted">
+        <SectionTitle className="mb-12">Inside the studio</SectionTitle>
+        <p className="text-body text-muted-foreground mb-10 max-w-2xl">
+          Our space is set up for comfortable, well-lit sessions—from props and backdrops to the gear we use every day.
+        </p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {studioSetupPhotos.map((src, i) => (
+            <ZoomableImage
+              key={src}
+              src={src}
+              alt={`Studio setup ${i + 1}`}
+              loading="lazy"
+              className="w-full aspect-[4/3] object-cover"
             />
-            <p className="text-body text-muted-foreground">
-              Our space is set up for comfortable, well-lit sessions—from props and backdrops to the gear we use every day.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {studioSetupPhotos.map((src, i) => (
-              <motion.div
-                key={src}
-                className="img-reveal"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.08 }}
-                transition={{ duration: 0.6, delay: Math.min(i * 0.05, 0.35) }}
-              >
-                <ZoomableImage
-                  src={src}
-                  alt={`Studio setup ${i + 1}`}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full aspect-[4/3] object-cover"
-                />
-              </motion.div>
-            ))}
-          </div>
+          ))}
         </div>
-      </section>
+      </Section>
 
-      {/* Values */}
-      <section className="py-24 md:py-32 bg-secondary">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="text-center mb-16">
-           {/*  <p className="text-label text-muted-foreground mb-4">What Drives Us</p> */}
-            <AnimatedText text="Our Values" as="h2" className="heading-section text-foreground" />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((v, i) => (
-              <motion.div
-                key={i}
-                className="p-8 text-center"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.1 }}
-                transition={{ delay: i * 0.1, duration: 0.6 }}
-              >
-                <v.icon className="mx-auto mb-6 text-accent" size={32} strokeWidth={1.5} />
-                <h3 className="font-heading text-2xl font-light text-foreground mb-3">{v.title}</h3>
-                <p className="text-body text-muted-foreground text-sm">{v.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+      <Section>
+        <SectionTitle className="mb-12 text-center">Our values</SectionTitle>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {values.map((v) => (
+            <div key={v.title} className="text-center border border-border p-8">
+              <v.icon className="mx-auto mb-4 text-accent" size={28} strokeWidth={1.5} />
+              <h3 className="font-heading text-xl font-light mb-2">{v.title}</h3>
+              <p className="text-body text-muted-foreground text-sm">{v.desc}</p>
+            </div>
+          ))}
         </div>
-      </section>
+      </Section>
 
-      {/* Timeline */}
-      <section className="py-24 md:py-32" ref={timelineRef}>
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="text-center mb-16">
-            {/* <p className="text-label text-muted-foreground mb-4">Our Journey</p> */}
-            <AnimatedText text="Through the Years" as="h2" className="heading-section text-foreground" />
-          </div>
-          <div className="max-w-3xl mx-auto">
-            {timeline.map((item, i) => (
-              <div key={i} className="timeline-item flex gap-8 mb-12 last:mb-0">
-                <div className="flex flex-col items-center">
-                  <div className="w-3 h-3 rounded-full bg-accent flex-shrink-0" />
-                  {i < timeline.length - 1 && <div className="w-px flex-1 bg-border mt-2" />}
-                </div>
-                <div className="pb-12">
-                  <p className="text-label text-accent mb-2">{item.year}</p>
-                  <h3 className="font-heading text-2xl font-light text-foreground mb-2">{item.title}</h3>
-                  <p className="text-body text-muted-foreground text-sm">{item.desc}</p>
-                </div>
+      <Section variant="muted">
+        <SectionTitle className="mb-12 text-center">Through the years</SectionTitle>
+        <div className="max-w-2xl mx-auto">
+          {timeline.map((item, i) => (
+            <div key={item.year} className="flex gap-6 mb-10 last:mb-0">
+              <div className="flex flex-col items-center">
+                <div className="w-2.5 h-2.5 rounded-full bg-accent shrink-0" />
+                {i < timeline.length - 1 && <div className="w-px flex-1 bg-border mt-2" />}
               </div>
-            ))}
-          </div>
+              <div>
+                <p className="text-label text-accent mb-1">{item.year}</p>
+                <h3 className="font-heading text-xl font-light mb-1">{item.title}</h3>
+                <p className="text-body text-muted-foreground text-sm">{item.desc}</p>
+              </div>
+            </div>
+          ))}
         </div>
-      </section>
+      </Section>
 
-      {/* CTA */}
-      <section className="py-24 md:py-32 bg-secondary">
-        <div className="container mx-auto px-6 md:px-12 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.1 }}
+      <Section>
+        <div className="text-center max-w-2xl mx-auto">
+          <SectionTitle className="mb-8">Let's work together</SectionTitle>
+          <a
+            href={site.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-background text-xs font-medium tracking-[0.2em] uppercase hover:bg-foreground/90 transition-colors"
           >
-            <h2 className="font-heading text-4xl md:text-6xl font-light text-foreground max-w-3xl mx-auto mb-8">
-              Let's Work Together
-            </h2>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-primary-foreground text-warm-900 font-body text-sm font-medium tracking-wider uppercase"
-            >
-              Get in Touch <ArrowUpRight size={16} />
-            </Link>
-          </motion.div>
+            Get in touch <ArrowUpRight size={16} />
+          </a>
         </div>
-      </section>
+      </Section>
     </main>
   );
 };

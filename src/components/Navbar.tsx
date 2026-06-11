@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { site } from '@/lib/site-content';
 
 const navLinks = [
   { label: 'Home', path: '/' },
   { label: 'Services', path: '/services' },
   { label: 'Portfolio', path: '/portfolio' },
   { label: 'About', path: '/about' },
-  // { label: 'Reviews', path: '/reviews' },
   { label: 'Contact', path: '/contact' },
 ];
 
@@ -18,7 +18,7 @@ const Navbar = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -29,23 +29,19 @@ const Navbar = () => {
 
   return (
     <>
-      <motion.header
-        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${
-          scrolled ? 'bg-background/95 backdrop-blur-sm border-b border-border' : 'bg-transparent'
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled || isOpen ? 'bg-background/95 backdrop-blur-md border-b border-border' : 'bg-background/80 backdrop-blur-sm'
         }`}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="flex items-center justify-between h-20">
+        <div className="container mx-auto px-6 md:px-12 max-w-6xl">
+          <div className="flex items-center justify-between h-16 md:h-20">
             <Link to="/" className="relative z-50">
-              <h2 className={`font-heading text-2xl font-light tracking-wider transition-colors duration-500 ${!scrolled && location.pathname === '/' && !isOpen ? 'text-primary-foreground' : 'text-foreground'}`}>
-                SHYAM STUDIO
-              </h2>
+              <span className="font-heading text-lg md:text-xl font-medium tracking-[0.2em] text-foreground">
+                {site.name.toUpperCase()}
+              </span>
             </Link>
 
-            {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.path;
@@ -53,29 +49,27 @@ const Navbar = () => {
                   <Link
                     key={link.path}
                     to={link.path}
-                    className={`relative text-label transition-colors duration-300 ${
-                      isActive
-                        ? (!scrolled && location.pathname === '/' ? 'text-primary-foreground' : 'text-foreground')
-                        : (!scrolled && location.pathname === '/' ? 'text-primary-foreground/70 hover:text-primary-foreground' : 'text-muted-foreground hover:text-foreground')
+                    className={`text-label transition-colors ${
+                      isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
                     }`}
                   >
                     {link.label}
-                    {isActive && (
-                      <motion.div
-                        layoutId="navbar-indicator"
-                        className={`absolute -bottom-2 left-0 right-0 h-px ${!scrolled && location.pathname === '/' ? 'bg-primary-foreground' : 'bg-foreground'}`}
-                        initial={false}
-                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                      />
-                    )}
                   </Link>
                 );
               })}
+              <a
+                href={site.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-2 rounded-full text-xs font-body font-medium tracking-[0.15em] uppercase bg-foreground text-background hover:bg-foreground/90 transition-colors"
+              >
+                Book now
+              </a>
             </nav>
 
-            {/* Mobile Toggle */}
             <button
-              className={`md:hidden relative z-50 p-2 transition-colors duration-500 ${!scrolled && location.pathname === '/' && !isOpen ? 'text-primary-foreground' : 'text-foreground'}`}
+              type="button"
+              className="md:hidden relative z-50 p-2 text-foreground"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
             >
@@ -83,52 +77,41 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-      </motion.header>
+      </header>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 z-40 bg-background flex items-center justify-center"
-            initial={{ clipPath: 'circle(0% at calc(100% - 40px) 40px)' }}
-            animate={{ clipPath: 'circle(150% at calc(100% - 40px) 40px)' }}
-            exit={{ clipPath: 'circle(0% at calc(100% - 40px) 40px)' }}
-            transition={{ duration: 0.6, ease: [0.65, 0, 0.35, 1] }}
+            className="fixed inset-0 z-40 bg-background flex flex-col items-center justify-center gap-8 md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
-            <nav className="flex flex-col items-center gap-8">
-              {navLinks.map((link, i) => {
-                const isActive = location.pathname === link.path;
-                return (
-                  <motion.div
-                    key={link.path}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 30 }}
-                    transition={{ delay: i * 0.08, duration: 0.4 }}
-                  >
-                    <Link
-                      to={link.path}
-                      className={`relative font-heading text-4xl font-light tracking-wide transition-colors ${
-                        isActive
-                          ? 'text-foreground'
-                          : 'text-muted-foreground hover:text-foreground'
-                      }`}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {link.label}
-                      {isActive && (
-                        <motion.div
-                          layoutId="mobile-navbar-indicator"
-                          className="absolute -bottom-2 left-0 right-0 h-[2px] bg-foreground"
-                          initial={false}
-                          transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                        />
-                      )}
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </nav>
+            {navLinks.map((link, i) => (
+              <motion.div
+                key={link.path}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.05 }}
+              >
+                <Link
+                  to={link.path}
+                  className={`font-heading text-3xl font-light ${
+                    location.pathname === link.path ? 'text-foreground' : 'text-muted-foreground'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              </motion.div>
+            ))}
+            <a
+              href={site.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-3 bg-foreground text-background text-xs font-medium tracking-[0.15em] uppercase"
+            >
+              Book now
+            </a>
           </motion.div>
         )}
       </AnimatePresence>

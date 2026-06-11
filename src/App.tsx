@@ -10,6 +10,7 @@ import SmoothScroll from './components/SmoothScroll';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
+import { DiscountModal } from './components/DiscountModal';
 import Index from "./pages/Index";
 import Services from "./pages/Services";
 import ServiceDetails from "./pages/ServiceDetails";
@@ -69,6 +70,7 @@ const AppRoutes = () => {
         </motion.div>
       </AnimatePresence>
       <FloatingWhatsApp />
+      <DiscountModal />
       <Footer />
     </>
   );

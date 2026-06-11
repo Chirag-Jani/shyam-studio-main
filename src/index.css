@@ -4,33 +4,33 @@
 
 @layer base {
   :root {
-    --background: 39 44% 94%;
-    --foreground: 0 0% 12%;
+    --background: 45 25% 97%;
+    --foreground: 70 11% 11%;
 
-    --card: 39 36% 96%;
-    --card-foreground: 0 0% 12%;
+    --card: 49 19% 93%;
+    --card-foreground: 70 11% 11%;
 
-    --popover: 39 36% 96%;
-    --popover-foreground: 0 0% 12%;
+    --popover: 45 25% 97%;
+    --popover-foreground: 70 11% 11%;
 
-    --primary: 0 0% 12%;
-    --primary-foreground: 39 44% 94%;
+    --primary: 70 11% 11%;
+    --primary-foreground: 45 25% 97%;
 
-    --secondary: 38 34% 90%;
-    --secondary-foreground: 0 0% 12%;
+    --secondary: 49 19% 93%;
+    --secondary-foreground: 70 11% 11%;
 
-    --muted: 38 24% 86%;
-    --muted-foreground: 28 10% 40%;
+    --muted: 48 15% 88%;
+    --muted-foreground: 60 7% 30%;
 
-    --accent: 39 45% 60%;
-    --accent-foreground: 0 0% 12%;
+    --accent: 28 26% 44%;
+    --accent-foreground: 45 25% 97%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 37 24% 78%;
-    --input: 37 24% 78%;
-    --ring: 39 45% 60%;
+    --border: 48 12% 84%;
+    --input: 48 12% 84%;
+    --ring: 28 26% 44%;
 
     --radius: 0.25rem;
 
@@ -43,20 +43,21 @@
     --sidebar-border: 37 24% 78%;
     --sidebar-ring: 39 45% 60%;
 
-    --font-heading: 'Cormorant Garamond', serif;
-    --font-body: 'Outfit', sans-serif;
+    --font-heading: 'Manrope', sans-serif;
+    --font-body: 'Manrope', sans-serif;
+    --font-accent: 'Playfair Display', serif;
 
-    /* Charcoal + ivory + soft-gold scale (legacy token name `warm` retained for compatibility). */
-    --warm-50: 39 40% 97%;
-    --warm-100: 38 38% 93%;
-    --warm-200: 38 30% 86%;
-    --warm-300: 38 24% 74%;
-    --warm-400: 36 18% 58%;
-    --warm-500: 39 45% 60%;
-    --warm-600: 30 16% 38%;
-    --warm-700: 20 10% 24%;
-    --warm-800: 10 4% 17%;
-    --warm-900: 0 0% 12%;
+    /* Ivory + warm-taupe scale (legacy token name `warm` retained for compatibility). */
+    --warm-50: 45 25% 97%;
+    --warm-100: 49 19% 93%;
+    --warm-200: 48 15% 88%;
+    --warm-300: 48 12% 78%;
+    --warm-400: 36 12% 58%;
+    --warm-500: 28 26% 44%;
+    --warm-600: 30 14% 36%;
+    --warm-700: 60 7% 26%;
+    --warm-800: 70 9% 17%;
+    --warm-900: 70 11% 11%;
   }
 
   .dark {
@@ -170,6 +171,15 @@
 
   .will-change-transform {
     will-change: transform;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
 

@@ -1,9 +1,10 @@
-import { useEffect, useState, type MouseEvent } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import AnimatedText from '@/components/AnimatedText';
+import { Play } from 'lucide-react';
+import { PageHero } from '@/components/layout/PageHero';
+import { Section } from '@/components/layout/Section';
+import { LazyImage } from '@/components/LazyImage';
 import { ImageLightboxOverlay } from '@/components/ImageLightboxOverlay';
-import { useOnceNearViewport } from '@/hooks/use-once-near-viewport';
 import { useScrollLock } from '@/hooks/use-scroll-lock';
 import {
   isPortfolioFilterCategory,
@@ -11,39 +12,7 @@ import {
   type PortfolioGalleryItem,
 } from '@/lib/portfolio-media';
 
-function PortfolioReelThumb({
-  src,
-  className,
-  onMouseEnter,
-  onMouseLeave,
-}: {
-  src: string;
-  className: string;
-  onMouseEnter: (e: MouseEvent<HTMLVideoElement>) => void;
-  onMouseLeave: (e: MouseEvent<HTMLVideoElement>) => void;
-}) {
-  const [wrapEl, setWrapEl] = useState<HTMLDivElement | null>(null);
-  const loadMedia = useOnceNearViewport(wrapEl);
-
-  return (
-    <div ref={setWrapEl} className="relative w-full">
-      {loadMedia ? (
-        <video
-          src={src}
-          muted
-          playsInline
-          loop
-          preload="metadata"
-          className={className}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-        />
-      ) : (
-        <div className={`${className} bg-muted`} aria-hidden />
-      )}
-    </div>
-  );
-}
+const PAGE_SIZE = 12;
 
 const categories = [
   { id: 'all', label: 'All' },
@@ -60,9 +29,21 @@ function categoryFromSearchParams(params: URLSearchParams): string {
   return isPortfolioFilterCategory(category) ? category : 'all';
 }
 
+function PortfolioReelPlaceholder({ title }: { title: string }) {
+  return (
+    <div className="w-full aspect-[9/16] bg-muted flex flex-col items-center justify-center gap-3 text-muted-foreground">
+      <div className="w-14 h-14 rounded-full border border-border flex items-center justify-center">
+        <Play size={22} className="ml-1" />
+      </div>
+      <span className="text-label">{title}</span>
+    </div>
+  );
+}
+
 const Portfolio = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [active, setActive] = useState(() => categoryFromSearchParams(searchParams));
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [selected, setSelected] = useState<PortfolioGalleryItem | null>(null);
 
   useScrollLock(!!selected && selected.kind === 'reel');
@@ -70,6 +51,10 @@ const Portfolio = () => {
   useEffect(() => {
     setActive(categoryFromSearchParams(searchParams));
   }, [searchParams]);
+
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [active]);
 
   const selectCategory = (id: string) => {
     setActive(id);
@@ -90,41 +75,27 @@ const Portfolio = () => {
   }, [selected]);
 
   const filtered =
-    active === 'all'
-      ? portfolioGalleryItems
-      : portfolioGalleryItems.filter((i) => i.category === active);
+    active === 'all' ? portfolioGalleryItems : portfolioGalleryItems.filter((i) => i.category === active);
+
+  const visible = filtered.slice(0, visibleCount);
+  const hasMore = visibleCount < filtered.length;
 
   return (
-    <main className="pt-20">
-      {/* Hero */}
-      <section className="py-24 md:py-32 bg-secondary">
-        <div className="container mx-auto px-6 md:px-12 text-center">
-          <AnimatedText
-            text="Portfolio Gallery"
-            as="h1"
-            className="heading-display text-5xl md:text-7xl text-foreground"
-          />
-          <motion.p
-            className="mt-6 text-body text-muted-foreground max-w-2xl mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            A curated collection of our finest work across all categories.
-            Each image represents a story, a moment, a memory.
-          </motion.p>
-        </div>
-      </section>
+    <main>
+      <PageHero
+        title="Portfolio gallery"
+        subtitle="A curated collection of our finest work. Each image represents a story, a moment, a memory."
+      />
 
-      {/* Filter */}
-      <section className="py-8 border-b border-border sticky top-20 bg-background z-30">
-        <div className="container mx-auto px-6 md:px-12">
+      <div className="sticky top-16 z-30 bg-background border-b border-border">
+        <div className="container mx-auto px-6 md:px-12 max-w-6xl py-4">
           <div className="flex gap-6 overflow-x-auto scrollbar-hide">
             {categories.map((cat) => (
               <button
                 key={cat.id}
+                type="button"
                 onClick={() => selectCategory(cat.id)}
-                className={`text-label whitespace-nowrap pb-2 border-b-2 transition-all duration-300 ${
+                className={`text-label whitespace-nowrap pb-2 border-b-2 transition-colors ${
                   active === cat.id
                     ? 'text-foreground border-foreground'
                     : 'text-muted-foreground border-transparent hover:text-foreground'
@@ -135,103 +106,74 @@ const Portfolio = () => {
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Gallery */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-6 md:px-12">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={active}
-              className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
+      <Section className="!pt-12">
+        <div key={active} className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+          {visible.map((item) => (
+            <div
+              key={item.id}
+              className="break-inside-avoid cursor-zoom-in group [content-visibility:auto]"
+              onClick={() => setSelected(item)}
+              onKeyDown={(e) => e.key === 'Enter' && setSelected(item)}
+              role="button"
+              tabIndex={0}
             >
-              {filtered.map((item, i) => (
-                <motion.div
-                  key={item.id}
-                  className="gallery-item break-inside-avoid group cursor-zoom-in"
-                  onClick={() => setSelected(item)}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.45, delay: Math.min(i * 0.02, 0.35) }}
-                  whileHover={{ y: -8 }}
-                >
-                  <div className="relative overflow-hidden">
-                    {item.kind === 'photo' ? (
-                      <img
-                        src={item.src}
-                        alt={item.title}
-                        loading="lazy"
-                        decoding="async"
-                        className={`w-full object-cover transition-transform duration-700 group-hover:scale-110 ${
-                          item.aspect === 'landscape' ? 'aspect-[4/3]' : 'aspect-[3/4]'
-                        }`}
-                      />
-                    ) : (
-                      <PortfolioReelThumb
-                        src={item.src}
-                        className="w-full aspect-[9/16] max-h-[85vh] object-cover transition-transform duration-700 group-hover:scale-110"
-                        onMouseEnter={(e) => void e.currentTarget.play()}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.pause();
-                          e.currentTarget.currentTime = 0;
-                        }}
-                      />
-                    )}
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
+              {item.kind === 'photo' ? (
+                <LazyImage
+                  src={item.src}
+                  alt={item.title}
+                  className={item.aspect === 'landscape' ? 'aspect-[4/3]' : 'aspect-[3/4]'}
+                  imgClassName="transition-transform duration-500 group-hover:scale-105"
+                  rootMargin="200px"
+                />
+              ) : (
+                <PortfolioReelPlaceholder title={item.title} />
+              )}
+            </div>
+          ))}
         </div>
-      </section>
+
+        {hasMore && (
+          <div className="mt-12 text-center">
+            <button
+              type="button"
+              onClick={() => setVisibleCount((n) => n + PAGE_SIZE)}
+              className="px-8 py-4 border border-border text-xs font-medium tracking-[0.2em] uppercase hover:bg-foreground hover:text-background transition-colors"
+            >
+              Load more ({filtered.length - visibleCount} remaining)
+            </button>
+          </div>
+        )}
+      </Section>
 
       <ImageLightboxOverlay
         open={selected?.kind === 'photo'}
         src={selected?.kind === 'photo' ? selected.src : ''}
-        alt={
-          selected?.kind === 'photo'
-            ? categories.find((c) => c.id === selected.category)?.label ?? 'Photo'
-            : ''
-        }
+        alt={selected?.kind === 'photo' ? selected.title : ''}
         onClose={() => setSelected(null)}
       />
 
-      {/* Video lightbox */}
-      <AnimatePresence>
-        {selected?.kind === 'reel' && (
-          <motion.div
-            className="fixed inset-0 z-[100] bg-warm-900/95 flex items-center justify-center p-6 cursor-pointer"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelected(null)}
-          >
-            <motion.div
-              className="relative max-w-4xl max-h-[85vh]"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <video
-                src={selected.src}
-                controls
-                playsInline
-                preload="metadata"
-                className="max-h-[85vh] w-auto max-w-full"
-                autoPlay
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {selected?.kind === 'reel' && (
+        <div
+          className="fixed inset-0 z-[100] bg-warm-900/95 flex items-center justify-center p-6"
+          onClick={() => setSelected(null)}
+          onKeyDown={(e) => e.key === 'Escape' && setSelected(null)}
+          role="presentation"
+        >
+          <div className="relative max-w-4xl max-h-[85vh]" onClick={(e) => e.stopPropagation()}>
+            <video
+              key={selected.src}
+              src={selected.src}
+              controls
+              playsInline
+              preload="none"
+              className="max-h-[85vh] w-auto max-w-full"
+              autoPlay
+            />
+          </div>
+        </div>
+      )}
     </main>
   );
 };
