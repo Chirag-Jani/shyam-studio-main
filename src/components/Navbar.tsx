@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { site } from '@/lib/site-content';
 
@@ -31,15 +30,13 @@ const Navbar = () => {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled || isOpen ? 'bg-background/95 backdrop-blur-md border-b border-border' : 'bg-background/80 backdrop-blur-sm'
+          scrolled || isOpen ? 'bg-background/95 backdrop-blur-md border-b border-border shadow-sm' : 'bg-background/90 backdrop-blur-sm'
         }`}
       >
         <div className="container mx-auto px-6 md:px-12 max-w-6xl">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            <Link to="/" className="relative z-50">
-              <span className="font-heading text-lg md:text-xl font-medium tracking-[0.2em] text-foreground">
-                {site.name.toUpperCase()}
-              </span>
+          <div className="flex items-center justify-between h-16 md:h-[4.5rem]">
+            <Link to="/" className="relative z-50 flex items-center">
+              <img src={site.logo} alt={site.name} className="h-8 md:h-9 w-auto" width={160} height={36} />
             </Link>
 
             <nav className="hidden md:flex items-center gap-8">
@@ -50,7 +47,7 @@ const Navbar = () => {
                     key={link.path}
                     to={link.path}
                     className={`text-label transition-colors ${
-                      isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
+                      isActive ? 'text-accent' : 'text-muted-foreground hover:text-foreground'
                     }`}
                   >
                     {link.label}
@@ -61,7 +58,7 @@ const Navbar = () => {
                 href={site.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-5 py-2 rounded-full text-xs font-body font-medium tracking-[0.15em] uppercase bg-foreground text-background hover:bg-foreground/90 transition-colors"
+                className="px-5 py-2 text-xs font-body font-medium tracking-[0.15em] uppercase bg-accent text-accent-foreground hover:opacity-90 transition-opacity"
               >
                 Book now
               </a>
@@ -79,42 +76,29 @@ const Navbar = () => {
         </div>
       </header>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="fixed inset-0 z-40 bg-background flex flex-col items-center justify-center gap-8 md:hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            {navLinks.map((link, i) => (
-              <motion.div
-                key={link.path}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 }}
-              >
-                <Link
-                  to={link.path}
-                  className={`font-heading text-3xl font-light ${
-                    location.pathname === link.path ? 'text-foreground' : 'text-muted-foreground'
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              </motion.div>
-            ))}
-            <a
-              href={site.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-3 bg-foreground text-background text-xs font-medium tracking-[0.15em] uppercase"
+      {isOpen && (
+        <div className="fixed inset-0 z-40 bg-background flex flex-col items-center justify-center gap-8 md:hidden pb-20">
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              to={link.path}
+              className={`font-heading text-2xl font-light ${
+                location.pathname === link.path ? 'text-accent' : 'text-muted-foreground'
+              }`}
             >
-              Book now
-            </a>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              {link.label}
+            </Link>
+          ))}
+          <a
+            href={site.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-8 py-3 bg-accent text-accent-foreground text-xs font-medium tracking-[0.15em] uppercase"
+          >
+            Book now
+          </a>
+        </div>
+      )}
     </>
   );
 };

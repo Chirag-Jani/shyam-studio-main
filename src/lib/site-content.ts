@@ -1,6 +1,7 @@
 export const site = {
   name: 'Shyam Studio',
-  tagline: 'We let moments unfold the way they should.',
+  tagline: 'Capturing life\'s most precious moments.',
+  logo: '/logo.svg',
   phone: '+91 99253 11820',
   phoneTel: '919925311820',
   whatsapp: 'https://wa.me/919925311820',
@@ -11,6 +12,50 @@ export const site = {
   mapsUrl:
     'https://maps.google.com/maps?q=201%20Opera%20Business%20Hub%20Nr.By%20Savji%20Korat%20Bridge,%20Ljamni%20Chowk%20Mota%20Varachha,%20Surat',
 } as const;
+
+export const heroSlides = [
+  { src: '/images/newborn/nb1.jpg', label: 'Newborn', href: '/portfolio?category=newborn' },
+  { src: '/images/kids/kid2.jpg', label: 'Toddlers', href: '/portfolio?category=toddlers' },
+  { src: '/images/mother/m2.jpg', label: 'Maternity', href: '/portfolio?category=family-shoots' },
+  { src: '/images/family/f1.jpg', label: 'Family', href: '/portfolio?category=family-shoots' },
+  { src: '/images/festival/fe1.JPG', label: 'Festival', href: '/portfolio?category=festival' },
+  { src: '/images/newborn/nb4.jpg', label: 'Newborn', href: '/portfolio?category=newborn' },
+  { src: '/images/family/f3.jpg', label: 'Family', href: '/portfolio?category=family-shoots' },
+] as const;
+
+export const homeCategoryGalleries = [
+  {
+    title: 'Newborn',
+    subtitle: 'First days, gently captured',
+    href: '/portfolio?category=newborn',
+    images: ['/images/newborn/nb1.jpg', '/images/newborn/nb2.JPG', '/images/newborn/nb4.jpg', '/images/newborn/nb5.JPG'],
+  },
+  {
+    title: 'Toddlers & Kids',
+    subtitle: 'Personality and play',
+    href: '/portfolio?category=toddlers',
+    images: ['/images/kids/kid2.jpg', '/images/kids/kid1.jpg', '/images/kids/kid3.jpg', '/images/kids/kid5.jpg'],
+  },
+  {
+    title: 'Family',
+    subtitle: 'Together, as you are',
+    href: '/portfolio?category=family-shoots',
+    images: ['/images/family/f1.jpg', '/images/family/f2.jpg', '/images/family/f3.jpg', '/images/family/f6.jpg'],
+  },
+  {
+    title: 'Festival',
+    subtitle: 'Celebration and colour',
+    href: '/portfolio?category=festival',
+    images: ['/images/festival/fe1.JPG', '/images/festival/fe3.jpg', '/images/festival/fe6.JPG', '/images/festival/fe10.JPG'],
+  },
+] as const;
+
+export const uspHighlights = [
+  { title: 'Memories within reach', line: 'Premium quality from ₹11,500' },
+  { title: 'Hassle-free sessions', line: 'Props, guidance, and patience included' },
+  { title: 'Comfort first', line: 'Especially with newborns and toddlers' },
+  { title: '8+ years in Surat', line: '10,000+ sessions completed' },
+] as const;
 
 export const heroEyebrow = ['Dear parents,', 'Welcome to a once-in-a-lifetime moment'] as const;
 
@@ -168,19 +213,22 @@ export const contentSections = [
 
 export const testimonials = [
   {
-    text: "Shyam Studio captured our baby's first moments so beautifully. Every photo tells a story. The attention to detail is remarkable.",
+    text: "Shyam Studio captured our baby's first moments so beautifully. Every photo tells a story.",
     author: 'Priya Sharma',
-    role: 'Mother of Two',
+    role: 'Newborn session',
+    image: '/images/newborn/nb1.jpg',
   },
   {
-    text: "From start to finish, the team made us feel comfortable. Our kids had a blast and the photos are priceless treasures.",
+    text: 'Our kids had a blast and the photos are priceless treasures.',
     author: 'Anita Desai',
-    role: 'Family Session',
+    role: 'Family session',
+    image: '/images/family/f2.jpg',
   },
   {
-    text: "We've been coming to Shyam Studio for all our milestones. The consistency in quality and the warm environment keeps us coming back.",
+    text: 'The consistency in quality and warm environment keeps us coming back.',
     author: 'Vikram & Sunita Reddy',
-    role: 'Premium Package',
+    role: 'Premium package',
+    image: '/images/family/f6.jpg',
   },
 ] as const;
 
