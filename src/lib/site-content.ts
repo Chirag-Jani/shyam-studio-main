@@ -2,6 +2,7 @@ export const site = {
   name: 'Shyam Studio',
   tagline: 'Capturing life\'s most precious moments.',
   logo: '/logo.svg',
+  logoIcon: '/favicon.ico',
   phone: '+91 99253 11820',
   phoneTel: '919925311820',
   whatsapp: 'https://wa.me/919925311820',

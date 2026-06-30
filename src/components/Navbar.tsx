@@ -41,7 +41,13 @@ const Navbar = () => {
         <div className="container mx-auto px-6 md:px-12 max-w-6xl">
           <div className="flex items-center justify-between h-16 md:h-[4.5rem]">
             <Link to="/" className="relative z-50 flex items-center">
-              <img src={site.logo} alt={site.name} className="h-8 md:h-9 w-auto" width={160} height={36} />
+              <img
+                src={site.logoIcon}
+                alt={site.name}
+                className="h-8 w-8 md:h-9 md:w-9 object-contain"
+                width={36}
+                height={36}
+              />
             </Link>
 
             <nav className="hidden md:flex items-center gap-8">
