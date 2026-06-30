@@ -1,13 +1,19 @@
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Check } from 'lucide-react';
 import { ZoomableImage } from '@/components/ZoomableImage';
-import { packages } from '@/lib/services';
+import { packages, serviceStudios } from '@/lib/services';
 import { site } from '@/lib/site-content';
 import { Section, SectionTitle } from '@/components/layout/Section';
+import { StudioService } from '@/pages/StudioService';
 
 const ServiceDetails = () => {
   const { slug } = useParams<{ slug: string }>();
+  const studio = serviceStudios.find((s) => s.slug === slug);
   const pkg = packages.find((p) => p.slug === slug);
+
+  if (studio) {
+    return <StudioService studio={studio} />;
+  }
 
   if (!pkg) {
     return (

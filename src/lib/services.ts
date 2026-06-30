@@ -90,3 +90,48 @@ export const packages = [
 ];
 
 export const packageCategories = ['Basic Plans', 'Standard Plans', 'Premium Plans'];
+
+export const serviceStudios = [
+    {
+        slug: 'maternity-photo-studio-surat',
+        title: 'Maternity / Pregnancy Photo Studio in Surat',
+        navLabel: 'Maternity / Pregnancy Photo Studio in Surat',
+        description:
+            'Celebrate your pregnancy with elegant maternity portraits at our Surat studio. We create a calm, comfortable session with thoughtful posing, soft lighting, and timeless frames you will treasure forever.',
+        portfolioHref: '/portfolio?category=family-shoots',
+        images: ['/images/mother/m2.webp', '/images/mother/m1.webp', '/images/mother/m3.webp'],
+    },
+    {
+        slug: 'newborn-photo-studio-surat',
+        title: 'Newborn Photo Studio in Surat',
+        navLabel: 'Newborn Photo Studio in Surat',
+        description:
+            'Gentle newborn photography in Surat for your baby\'s first days. Our experienced team works at your baby\'s pace with a warm studio setup, curated props, and artistic storytelling.',
+        portfolioHref: '/portfolio?category=newborn',
+        images: ['/images/newborn/nb1.webp', '/images/newborn/nb2.webp', '/images/newborn/nb4.webp'],
+    },
+    {
+        slug: 'family-photo-studio-surat',
+        title: 'Family Photo Studio in Surat',
+        navLabel: 'Family Photo Studio in Surat',
+        description:
+            'Family photography in Surat that feels natural and connected. From siblings to grandparents, we capture candid moments and polished portraits your whole family will love.',
+        portfolioHref: '/portfolio?category=family-shoots',
+        images: ['/images/family/f1.webp', '/images/family/f2.webp', '/images/family/f3.webp'],
+    },
+    {
+        slug: 'kids-toddler-photo-studio-surat',
+        title: 'Kids / Toddler Photo Studio in Surat',
+        navLabel: 'Kids / Toddler Photo Studio in Surat',
+        description:
+            'Playful kids and toddler sessions in Surat with patience, props, and plenty of room for personality. We turn little milestones into bright, joyful photographs.',
+        portfolioHref: '/portfolio?category=toddlers',
+        images: ['/images/kids/kid2.webp', '/images/kids/kid1.webp', '/images/kids/kid5.webp'],
+    },
+] as const;
+
+/** Navbar Services dropdown only — not the full package list. */
+export const serviceNavLinks = serviceStudios.map((studio) => ({
+    label: studio.navLabel,
+    path: `/services/${studio.slug}`,
+}));

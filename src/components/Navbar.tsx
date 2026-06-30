@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { ChevronDown, Menu, X } from 'lucide-react';
 import { site } from '@/lib/site-content';
+import { serviceNavLinks } from '@/lib/services';
+import { cn } from '@/lib/utils';
 
 const navLinks = [
   { label: 'Home', path: '/' },
-  { label: 'Services', path: '/services' },
   { label: 'Portfolio', path: '/portfolio' },
   { label: 'About', path: '/about' },
   { label: 'Contact', path: '/contact' },
@@ -13,8 +14,11 @@ const navLinks = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+
+  const isServicesActive = location.pathname === '/services' || location.pathname.startsWith('/services/');
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -24,6 +28,7 @@ const Navbar = () => {
 
   useEffect(() => {
     setIsOpen(false);
+    setServicesOpen(false);
   }, [location]);
 
   return (
@@ -40,20 +45,61 @@ const Navbar = () => {
             </Link>
 
             <nav className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) => {
+              <Link
+                to="/"
+                className={cn(
+                  'text-label transition-colors',
+                  location.pathname === '/' ? 'text-accent' : 'text-muted-foreground hover:text-foreground',
+                )}
+              >
+                Home
+              </Link>
+
+              <div className="relative group">
+                <Link
+                  to="/services"
+                  className={cn(
+                    'inline-flex items-center gap-1 text-label transition-colors',
+                    isServicesActive ? 'text-accent' : 'text-muted-foreground hover:text-foreground',
+                  )}
+                >
+                  Services
+                  <ChevronDown size={14} className="transition-transform group-hover:rotate-180" />
+                </Link>
+                <div className="absolute top-full left-0 pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  <div className="min-w-[20rem] border border-border bg-background shadow-lg py-2">
+                    {serviceNavLinks.map((item) => (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className={cn(
+                          'block px-5 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors',
+                          location.pathname === item.path && 'text-accent bg-muted/50',
+                        )}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {navLinks.slice(1).map((link) => {
                 const isActive = location.pathname === link.path;
                 return (
                   <Link
                     key={link.path}
                     to={link.path}
-                    className={`text-label transition-colors ${
-                      isActive ? 'text-accent' : 'text-muted-foreground hover:text-foreground'
-                    }`}
+                    className={cn(
+                      'text-label transition-colors',
+                      isActive ? 'text-accent' : 'text-muted-foreground hover:text-foreground',
+                    )}
                   >
                     {link.label}
                   </Link>
                 );
               })}
+
               <a
                 href={site.whatsapp}
                 target="_blank"
@@ -77,18 +123,60 @@ const Navbar = () => {
       </header>
 
       {isOpen && (
-        <div className="fixed inset-0 z-40 bg-background flex flex-col items-center justify-center gap-8 md:hidden pb-20">
-          {navLinks.map((link) => (
+        <div className="fixed inset-0 z-40 bg-background flex flex-col items-center justify-center gap-6 md:hidden pb-20 overflow-y-auto px-6">
+          <Link
+            to="/"
+            className={cn(
+              'font-heading text-2xl font-light',
+              location.pathname === '/' ? 'text-accent' : 'text-muted-foreground',
+            )}
+          >
+            Home
+          </Link>
+
+          <div className="flex flex-col items-center gap-3 w-full max-w-sm">
+            <button
+              type="button"
+              onClick={() => setServicesOpen(!servicesOpen)}
+              className={cn(
+                'inline-flex items-center gap-2 font-heading text-2xl font-light',
+                isServicesActive ? 'text-accent' : 'text-muted-foreground',
+              )}
+            >
+              Services
+              <ChevronDown size={20} className={cn('transition-transform', servicesOpen && 'rotate-180')} />
+            </button>
+            {servicesOpen && (
+              <div className="flex flex-col gap-2 w-full text-center">
+                {serviceNavLinks.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={cn(
+                      'text-sm py-2 leading-snug',
+                      location.pathname === item.path ? 'text-accent' : 'text-muted-foreground hover:text-foreground',
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {navLinks.slice(1).map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`font-heading text-2xl font-light ${
-                location.pathname === link.path ? 'text-accent' : 'text-muted-foreground'
-              }`}
+              className={cn(
+                'font-heading text-2xl font-light',
+                location.pathname === link.path ? 'text-accent' : 'text-muted-foreground',
+              )}
             >
               {link.label}
             </Link>
           ))}
+
           <a
             href={site.whatsapp}
             target="_blank"
