@@ -14,13 +14,13 @@ export const site = {
 } as const;
 
 export const heroSlides = [
-  { src: '/images/newborn/nb1.jpg', label: 'Newborn', href: '/portfolio?category=newborn' },
-  { src: '/images/kids/kid2.jpg', label: 'Toddlers', href: '/portfolio?category=toddlers' },
-  { src: '/images/mother/m2.jpg', label: 'Maternity', href: '/portfolio?category=family-shoots' },
-  { src: '/images/family/f1.jpg', label: 'Family', href: '/portfolio?category=family-shoots' },
-  { src: '/images/festival/fe1.JPG', label: 'Festival', href: '/portfolio?category=festival' },
-  { src: '/images/newborn/nb4.jpg', label: 'Newborn', href: '/portfolio?category=newborn' },
-  { src: '/images/family/f3.jpg', label: 'Family', href: '/portfolio?category=family-shoots' },
+  { src: '/images/newborn/nb1.webp', label: 'Newborn', href: '/portfolio?category=newborn' },
+  { src: '/images/kids/kid2.webp', label: 'Toddlers', href: '/portfolio?category=toddlers' },
+  { src: '/images/mother/m2.webp', label: 'Maternity', href: '/portfolio?category=family-shoots' },
+  { src: '/images/family/f1.webp', label: 'Family', href: '/portfolio?category=family-shoots' },
+  { src: '/images/festival/fe1.webp', label: 'Festival', href: '/portfolio?category=festival' },
+  { src: '/images/newborn/nb4.webp', label: 'Newborn', href: '/portfolio?category=newborn' },
+  { src: '/images/family/f3.webp', label: 'Family', href: '/portfolio?category=family-shoots' },
 ] as const;
 
 export const homeCategoryGalleries = [
@@ -28,25 +28,25 @@ export const homeCategoryGalleries = [
     title: 'Newborn',
     subtitle: 'First days, gently captured',
     href: '/portfolio?category=newborn',
-    images: ['/images/newborn/nb1.jpg', '/images/newborn/nb2.JPG', '/images/newborn/nb4.jpg', '/images/newborn/nb5.JPG'],
+    images: ['/images/newborn/nb1.webp', '/images/newborn/nb2.webp', '/images/newborn/nb4.webp', '/images/newborn/nb5.webp'],
   },
   {
     title: 'Toddlers & Kids',
     subtitle: 'Personality and play',
     href: '/portfolio?category=toddlers',
-    images: ['/images/kids/kid2.jpg', '/images/kids/kid1.jpg', '/images/kids/kid3.jpg', '/images/kids/kid5.jpg'],
+    images: ['/images/kids/kid2.webp', '/images/kids/kid1.webp', '/images/kids/kid3.webp', '/images/kids/kid5.webp'],
   },
   {
     title: 'Family',
     subtitle: 'Together, as you are',
     href: '/portfolio?category=family-shoots',
-    images: ['/images/family/f1.jpg', '/images/family/f2.jpg', '/images/family/f3.jpg', '/images/family/f6.jpg'],
+    images: ['/images/family/f1.webp', '/images/family/f2.webp', '/images/family/f3.webp', '/images/family/f6.webp'],
   },
   {
     title: 'Festival',
     subtitle: 'Celebration and colour',
     href: '/portfolio?category=festival',
-    images: ['/images/festival/fe1.JPG', '/images/festival/fe3.jpg', '/images/festival/fe6.JPG', '/images/festival/fe10.JPG'],
+    images: ['/images/festival/fe1.webp', '/images/festival/fe3.webp', '/images/festival/fe6.webp', '/images/festival/fe10.webp'],
   },
 ] as const;
 
@@ -60,9 +60,9 @@ export const uspHighlights = [
 export const heroEyebrow = ['Dear parents,', 'Welcome to a once-in-a-lifetime moment'] as const;
 
 export const heroCollage = {
-  center: '/images/mother/m2.jpg',
-  left: ['/images/newborn/nb1.jpg', '/images/family/f3.jpg'],
-  right: ['/images/family/f1.jpg', '/images/kids/kid2.jpg'],
+  center: '/images/mother/m2.webp',
+  left: ['/images/newborn/nb1.webp', '/images/family/f3.webp'],
+  right: ['/images/family/f1.webp', '/images/kids/kid2.webp'],
 } as const;
 
 export const letter = {
@@ -216,26 +216,26 @@ export const testimonials = [
     text: "Shyam Studio captured our baby's first moments so beautifully. Every photo tells a story.",
     author: 'Priya Sharma',
     role: 'Newborn session',
-    image: '/images/newborn/nb1.jpg',
+    image: '/images/newborn/nb1.webp',
   },
   {
     text: 'Our kids had a blast and the photos are priceless treasures.',
     author: 'Anita Desai',
     role: 'Family session',
-    image: '/images/family/f2.jpg',
+    image: '/images/family/f2.webp',
   },
   {
     text: 'The consistency in quality and warm environment keeps us coming back.',
     author: 'Vikram & Sunita Reddy',
     role: 'Premium package',
-    image: '/images/family/f6.jpg',
+    image: '/images/family/f6.webp',
   },
 ] as const;
 
 export const portfolioCarouselImages = [
-  '/images/family/f1.jpg',
-  '/images/newborn/nb1.jpg',
-  '/images/kids/kid2.jpg',
-  '/images/festival/fe1.JPG',
-  '/images/family/f3.jpg',
+  '/images/family/f1.webp',
+  '/images/newborn/nb1.webp',
+  '/images/kids/kid2.webp',
+  '/images/festival/fe1.webp',
+  '/images/family/f3.webp',
 ] as const;

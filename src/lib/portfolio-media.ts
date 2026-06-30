@@ -3,12 +3,12 @@
  */
 
 export const portfolio = {
-  hero: '/images/family/f1.jpg',
-  about: '/images/mother/m2.jpg',
+  hero: '/images/family/f1.webp',
+  about: '/images/mother/m2.webp',
 } as const;
 
 /** Studio / setup shots under `public/images/setup` (keep this list in sync with files on disk). */
-const STUDIO_SETUP_FILES = ['s1.jpeg', 's4.jpeg', 's5.jpeg', 's6.jpeg', 's7.jpeg'] as const;
+const STUDIO_SETUP_FILES = ['s1.webp', 's4.webp', 's5.webp', 's6.webp', 's7.webp'] as const;
 
 export const studioSetupPhotos = STUDIO_SETUP_FILES.map((f) => `/images/setup/${f}`);
 
@@ -52,9 +52,9 @@ export type HomePortfolioReelItem = {
 export type HomePortfolioItem = HomePortfolioPhotoItem | HomePortfolioReelItem;
 
 export const homePortfolioPreview: HomePortfolioItem[] = [
-  { kind: 'photo', img: '/images/kids/kid2.jpg', title: 'Toddlers', category: 'toddlers' },
-  { kind: 'photo', img: '/images/family/f2.jpg', title: 'Family Shoots', category: 'family-shoots' },
-  { kind: 'photo', img: '/images/newborn/nb1.jpg', title: 'Newborn', category: 'newborn' },
+  { kind: 'photo', img: '/images/kids/kid2.webp', title: 'Toddlers', category: 'toddlers' },
+  { kind: 'photo', img: '/images/family/f2.webp', title: 'Family Shoots', category: 'family-shoots' },
+  { kind: 'photo', img: '/images/newborn/nb1.webp', title: 'Newborn', category: 'newborn' },
   { kind: 'reel', reel: '/images/reels/reel1.mp4', title: 'Outdoor Reels', category: 'reels-outdoor' },
   { kind: 'reel', reel: '/images/reels/reel2.mp4', title: 'Indoor Reels', category: 'reels-indoor' },
 ];
@@ -78,21 +78,21 @@ export type ReelGalleryItem = {
 
 export type PortfolioGalleryItem = PhotoGalleryItem | ReelGalleryItem;
 
-const KIDS = ['kid1.jpg', 'kid2.jpg', 'kid3.jpg', 'kid4.JPG', 'kid5.jpg'] as const;
-const NEWBORN = ['nb1.jpg', 'nb2.JPG', 'nb3.JPG', 'nb4.jpg', 'nb5.JPG'] as const;
-const FAMILY = ['f1.jpg', 'f2.jpg', 'f3.jpg', 'f4.jpg', 'f5.jpg', 'f6.jpg'] as const;
+const KIDS = ['kid1.webp', 'kid2.webp', 'kid3.webp', 'kid4.webp', 'kid5.webp'] as const;
+const NEWBORN = ['nb1.webp', 'nb2.webp', 'nb3.webp', 'nb4.webp', 'nb5.webp'] as const;
+const FAMILY = ['f1.webp', 'f2.webp', 'f3.webp', 'f4.webp', 'f5.webp', 'f6.webp'] as const;
 const FESTIVAL = [
-  'fe1.JPG',
-  'fe2.JPG',
-  'fe3.jpg',
-  'fe4.JPG',
-  'fe5.jpg',
-  'fe6.JPG',
-  'fe7.jpg',
-  'fe8.jpg',
-  'fe9.JPG',
-  'fe10.JPG',
-  'fe11.JPG',
+  'fe1.webp',
+  'fe2.webp',
+  'fe3.webp',
+  'fe4.webp',
+  'fe5.webp',
+  'fe6.webp',
+  'fe7.webp',
+  'fe8.webp',
+  'fe9.webp',
+  'fe10.webp',
+  'fe11.webp',
 ] as const;
 
 function pushPhotos(
